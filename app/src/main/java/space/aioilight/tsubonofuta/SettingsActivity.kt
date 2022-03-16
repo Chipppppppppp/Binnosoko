@@ -1,9 +1,6 @@
 package space.aioilight.tsubonofuta
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -60,28 +57,29 @@ fun SettingScreen() {
     }
 }
 
-@SuppressLint("WorldReadableFiles")
 @Composable
 fun SettingsContent() {
     val scrollState = rememberScrollState()
-    val pref = LocalContext.current.getSharedPreferences("tsuboprefs", Context.MODE_WORLD_READABLE)
+    val config = AppConfig(LocalContext.current)
     Column(
         Modifier.verticalScroll(scrollState)
     ) {
         SettingsSwitch(
             title = stringResource(id = R.string.settings_thread_title),
             description = stringResource(id = R.string.settings_thread_desc),
-            key = "thread",
-            default = true,
-            prefs = pref
-        )
+            value = config.hideThreadAd
+        ) {
+            config.hideThreadAd = it
+            config.save()
+        }
         SettingsSwitch(
             title = stringResource(id = R.string.settings_inline_title),
             description = stringResource(id = R.string.settings_inline_desc),
-            key = "inline",
-            default = true,
-            prefs = pref
-        )
+            value = config.hideInlineAd
+        ) {
+            config.hideInlineAd = it
+            config.save()
+        }
         Spacer(modifier = Modifier.height(128.dp))
         GitHub()
         Status()
@@ -92,41 +90,42 @@ fun SettingsContent() {
 @Composable
 fun SettingsTopBar(topAppBarScrollBehavior: TopAppBarScrollBehavior) {
     LargeTopAppBar(
-        title = { Text(text = stringResource(id = R.string.app_name))},
+        title = { Text(text = stringResource(id = R.string.app_name)) },
         scrollBehavior = topAppBarScrollBehavior
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("CommitPrefEdits", "ApplySharedPref")
 @Composable
-fun SettingsSwitch(title: String,
-                   description: String,
-                   key:String,
-                   default: Boolean,
-                   prefs: SharedPreferences) {
-    val def = prefs.getBoolean(key, default)
-    val checkedState = remember { mutableStateOf(def)}
+fun SettingsSwitch(
+    title: String,
+    description: String,
+    value: Boolean,
+    onChanged: (Boolean) -> Unit
+) {
+    val checkedState = remember { mutableStateOf(value) }
     Row(
         Modifier
             .clickable {
                 checkedState.value = !checkedState.value
-                val editor = prefs.edit()
-                editor.putBoolean(key, checkedState.value)
-                editor.commit()
+                onChanged(checkedState.value)
             }
             .fillMaxWidth()
             .padding(24.dp),
         Arrangement.SpaceBetween,
     ) {
-        Column (
+        Column(
             Modifier.weight(1f)
-        ){
-            Text(text = title,
-                style = Typography.subtitle1)
+        ) {
+            Text(
+                text = title,
+                style = Typography.subtitle1
+            )
             if (description.isNotEmpty()) {
-                Text(text = description,
-                    style = Typography.caption)
+                Text(
+                    text = description,
+                    style = Typography.caption
+                )
             }
         }
         Checkbox(checked = checkedState.value, onCheckedChange = null)
@@ -135,7 +134,11 @@ fun SettingsSwitch(title: String,
 
 @Composable
 fun Status() {
-    val title = stringResource(id = R.string.settings_status_title, stringResource(id = R.string.app_name), BuildConfig.VERSION_NAME)
+    val title = stringResource(
+        id = R.string.settings_status_title,
+        stringResource(id = R.string.app_name),
+        BuildConfig.VERSION_NAME
+    )
     val desc = stringResource(id = R.string.settings_status_desc)
     val context = LocalContext.current
     Row(
