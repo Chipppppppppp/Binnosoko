@@ -1,2 +1,2 @@
 # Tsubonofuta
-F*ck inline ads of ChMate
+F*ck ChMate's ads
