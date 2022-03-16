@@ -33,6 +33,9 @@
         <meta-data
             android:name="xposedscope"
             android:resource="@array/apps" />
+        <meta-data
+            android:name="xposedsharedprefs"
+            android:value="true" />
     </application>
 
 </manifest>
