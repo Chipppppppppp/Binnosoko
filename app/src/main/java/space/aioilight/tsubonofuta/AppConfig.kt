@@ -7,8 +7,16 @@ import android.os.Environment
 import de.robv.android.xposed.XSharedPreferences
 import java.io.File
 import java.lang.Exception
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 class AppConfig {
+    var hideInlineAd by BooleanPreference("inline", true)
+    var hideThreadAd by BooleanPreference("thread", true)
+
+    private val pref: SharedPreferences
+    private var privateMode = false
+
     companion object {
         private const val FILE_NAME = "tsuboprefs"
 
@@ -21,15 +29,8 @@ class AppConfig {
         }
     }
 
-    private val pref: SharedPreferences
-    private var privateMode = false
-    var hideInlineAd = true
-    var hideThreadAd = true
-
     private constructor() {
         pref = XSharedPreferences(BuildConfig.APPLICATION_ID, FILE_NAME)
-        if (pref.file.canRead())
-            load()
     }
 
     @Suppress("DEPRECATION")
@@ -41,22 +42,34 @@ class AppConfig {
             privateMode = true
             context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
         }
-        load()
     }
 
-    private fun load() {
-        hideInlineAd = pref.getBoolean("inline", true)
-        hideThreadAd = pref.getBoolean("thread", true)
-    }
-
-    @SuppressLint("SetWorldReadable")
-    fun save() {
-        with(pref.edit()) {
-            putBoolean("inline", hideInlineAd)
-            putBoolean("thread", hideThreadAd)
-            commit()
+    private open class BasePreference<T>(
+        private val name: String,
+        private val defaultValue: T,
+        private val getter: SharedPreferences.(String, T) -> T,
+        private val setter: SharedPreferences.Editor.(String, T) -> SharedPreferences.Editor
+    ) : ReadWriteProperty<AppConfig, T> {
+        override fun getValue(thisRef: AppConfig, property: KProperty<*>): T {
+            return try {
+                thisRef.pref.getter(name, defaultValue)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                defaultValue
+            }
         }
-        if (privateMode) {
+
+        @SuppressLint("CommitPrefEdits")
+        override fun setValue(thisRef: AppConfig, property: KProperty<*>, value: T) {
+            thisRef.pref.edit().setter(name, value).commit()
+            makeWorldReadable(thisRef)
+        }
+
+        @SuppressLint("SetWorldReadable")
+        private fun makeWorldReadable(thisRef: AppConfig) {
+            if (!thisRef.privateMode)
+                return
+
             try {
                 val packageDir = File(
                     Environment.getDataDirectory(),
@@ -78,4 +91,12 @@ class AppConfig {
             }
         }
     }
+
+    private class BooleanPreference(name: String, defaultValue: Boolean) :
+        BasePreference<Boolean>(
+            name,
+            defaultValue,
+            SharedPreferences::getBoolean,
+            SharedPreferences.Editor::putBoolean
+        ) {}
 }

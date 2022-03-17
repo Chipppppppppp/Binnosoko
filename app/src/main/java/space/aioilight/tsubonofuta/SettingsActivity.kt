@@ -70,7 +70,6 @@ fun SettingsContent() {
             value = config.hideThreadAd
         ) {
             config.hideThreadAd = it
-            config.save()
         }
         SettingsSwitch(
             title = stringResource(id = R.string.settings_inline_title),
@@ -78,7 +77,6 @@ fun SettingsContent() {
             value = config.hideInlineAd
         ) {
             config.hideInlineAd = it
-            config.save()
         }
         Spacer(modifier = Modifier.height(128.dp))
         GitHub()
