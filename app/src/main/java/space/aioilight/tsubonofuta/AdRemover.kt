@@ -21,7 +21,7 @@ class AdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPacka
     private val targetActivityClass = XposedHelpers.findClass(TARGET_ACTIVITY, classLoader)
 
     fun register() {
-        if (!config.hideInlineAd && config.hideThreadAd) {
+        if (!config.hideInlineAd && !config.hideThreadAd) {
             XposedBridge.log("Hide no ad")
             return
         }
