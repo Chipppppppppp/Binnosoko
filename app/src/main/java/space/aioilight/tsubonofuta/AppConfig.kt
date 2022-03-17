@@ -98,5 +98,5 @@ class AppConfig {
             defaultValue,
             SharedPreferences::getBoolean,
             SharedPreferences.Editor::putBoolean
-        ) {}
+        )
 }
