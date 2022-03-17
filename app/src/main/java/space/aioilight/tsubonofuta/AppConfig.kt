@@ -70,8 +70,4 @@ class AppConfig {
             }
         }
     }
-
-    fun isEnabled(): Boolean {
-        return hideInlineAd || hideThreadAd
-    }
 }
