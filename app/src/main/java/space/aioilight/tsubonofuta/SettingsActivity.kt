@@ -60,7 +60,7 @@ fun SettingScreen() {
 @Composable
 fun SettingsContent() {
     val scrollState = rememberScrollState()
-    val config = AppConfig(LocalContext.current)
+    val config = AppConfig.newInstanceForModule(LocalContext.current)
     Column(
         Modifier.verticalScroll(scrollState)
     ) {

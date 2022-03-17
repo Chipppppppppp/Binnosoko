@@ -13,7 +13,7 @@ class layP : IXposedHookLoadPackage {
         if (packageName != PACKAGE_NAME)
             return
 
-        val config = AppConfig()
+        val config = AppConfig.newInstanceForHookedApp()
         AdRemover(config, lpParam).register()
     }
 }

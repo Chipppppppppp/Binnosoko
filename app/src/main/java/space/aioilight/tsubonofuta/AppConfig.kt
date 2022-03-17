@@ -11,6 +11,14 @@ import java.lang.Exception
 class AppConfig {
     companion object {
         private const val FILE_NAME = "tsuboprefs"
+
+        fun newInstanceForHookedApp(): AppConfig {
+            return AppConfig()
+        }
+
+        fun newInstanceForModule(context: Context): AppConfig {
+            return AppConfig(context)
+        }
     }
 
     private val pref: SharedPreferences
@@ -18,7 +26,7 @@ class AppConfig {
     var hideInlineAd = true
     var hideThreadAd = true
 
-    constructor() {
+    private constructor() {
         pref = XSharedPreferences(BuildConfig.APPLICATION_ID, FILE_NAME)
         if (pref.file.canRead())
             load()
@@ -26,7 +34,7 @@ class AppConfig {
 
     @Suppress("DEPRECATION")
     @SuppressLint("WorldReadableFiles")
-    constructor(context: Context) {
+    private constructor(context: Context) {
         pref = try {
             context.getSharedPreferences(FILE_NAME, Context.MODE_WORLD_READABLE)
         } catch (e: SecurityException) {
