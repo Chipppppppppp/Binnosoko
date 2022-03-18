@@ -34,11 +34,15 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
                 View::class.java,
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as ViewGroup
-                        if (!isTargetView(view))
-                            return
-                        view.removeAllViews()
-                        param.result = null
+                        try {
+                            val view = param.thisObject as ViewGroup
+                            if (!isTargetView(view))
+                                return
+                            view.removeAllViews()
+                            param.result = null
+                        } catch (e: Exception) {
+                            XposedBridge.log(e)
+                        }
                     }
                 }
             )
@@ -56,11 +60,15 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
                 Int::class.java,
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as ViewGroup
-                        if (!isTargetView(view))
-                            return
-                        methodSetMeasuredDimension.invoke(view, 0, 0)
-                        param.result = null
+                        try {
+                            val view = param.thisObject as ViewGroup
+                            if (!isTargetView(view))
+                                return
+                            methodSetMeasuredDimension.invoke(view, 0, 0)
+                            param.result = null
+                        } catch (e: Exception) {
+                            XposedBridge.log(e)
+                        }
                     }
                 }
             )

@@ -35,16 +35,20 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                 ),
                 object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {
-                        XposedHelpers.setAdditionalInstanceField(
-                            param.thisObject,
-                            KEY_ACTIVITY,
-                            param.args[0]
-                        )
-                        XposedHelpers.setAdditionalInstanceField(
-                            param.thisObject,
-                            KEY_CALLBACK,
-                            param.args[2]
-                        )
+                        try {
+                            XposedHelpers.setAdditionalInstanceField(
+                                param.thisObject,
+                                KEY_ACTIVITY,
+                                param.args[0]
+                            )
+                            XposedHelpers.setAdditionalInstanceField(
+                                param.thisObject,
+                                KEY_CALLBACK,
+                                param.args[2]
+                            )
+                        } catch (e: Exception) {
+                            XposedBridge.log(e)
+                        }
                     }
                 }
             )
@@ -58,22 +62,30 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                     it,
                     object : XC_MethodHook() {
                         override fun beforeHookedMethod(param: MethodHookParam) {
-                            val activity = XposedHelpers.getAdditionalInstanceField(
-                                param.thisObject,
-                                KEY_ACTIVITY
-                            ) as Activity
-                            val callback = XposedHelpers.getAdditionalInstanceField(
-                                param.thisObject,
-                                KEY_CALLBACK
-                            )
-                            Thread {
-                                Thread.sleep(5000)
-                                activity.runOnUiThread {
-                                    XposedHelpers.callMethod(callback, "onOpened")
-                                    XposedHelpers.callMethod(callback, "onCompleted")
-                                }
-                            }.start()
-                            param.result = null
+                            try {
+                                val activity = XposedHelpers.getAdditionalInstanceField(
+                                    param.thisObject,
+                                    KEY_ACTIVITY
+                                ) as Activity
+                                val callback = XposedHelpers.getAdditionalInstanceField(
+                                    param.thisObject,
+                                    KEY_CALLBACK
+                                )
+                                Thread {
+                                    Thread.sleep(5000)
+                                    activity.runOnUiThread {
+                                        try {
+                                            XposedHelpers.callMethod(callback, "onOpened")
+                                            XposedHelpers.callMethod(callback, "onCompleted")
+                                        } catch (e: Exception) {
+                                            XposedBridge.log(e)
+                                        }
+                                    }
+                                }.start()
+                                param.result = null
+                            } catch (e: Exception) {
+                                XposedBridge.log(e)
+                            }
                         }
                     }
                 )
