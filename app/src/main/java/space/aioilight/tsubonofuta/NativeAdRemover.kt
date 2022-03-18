@@ -8,7 +8,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class AdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
+class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     companion object {
         private const val INLINE_AD_CLASS = "jp.syoboi.a2chMate.view.ad.InlineAdContainer"
         private const val HEAD_AD_CLASS = "jp.syoboi.a2chMate.view.MyAdView"
@@ -22,11 +22,11 @@ class AdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPacka
 
     fun register() {
         if (!config.hideInlineAd && !config.hideThreadAd) {
-            XposedBridge.log("Hide no ad")
+            XposedBridge.log("Hide no native ad")
             return
         }
 
-        XposedBridge.log("Start AdRemover")
+        XposedBridge.log("Start NativeAdRemover")
         try {
             XposedHelpers.findAndHookMethod(
                 ViewGroup::class.java,
