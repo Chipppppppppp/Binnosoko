@@ -78,7 +78,14 @@ fun SettingsContent() {
         ) {
             config.hideInlineAd = it
         }
-        Spacer(modifier = Modifier.height(128.dp))
+        SettingsSwitch(
+            title = stringResource(id = R.string.settings_past_log_title),
+            description = stringResource(id = R.string.settings_past_log_desc),
+            value = config.hidePastLogAd
+        ) {
+            config.hidePastLogAd = it
+        }
+        Spacer(modifier = Modifier.height(32.dp))
         GitHub()
         Status()
     }

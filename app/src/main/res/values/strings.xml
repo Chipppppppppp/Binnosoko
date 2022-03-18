@@ -6,6 +6,8 @@
     <string name="settings_thread_desc">Removes ads in thread viewer. It does not apply to the home screen (Purchase ChMate+ if you want).</string>
     <string name="settings_inline_title">Remove inline ads</string>
     <string name="settings_inline_desc">Removes inline ads added since ChMate 0.8.10.150.</string>
+    <string name="settings_past_log_title">Remove past log ads</string>
+    <string name="settings_past_log_desc">Removes ads at loading past log.</string>
     <string name="settings_github_title" translatable="false">AioiLight/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
     <string name="settings_status_title">%1s version %2s</string>

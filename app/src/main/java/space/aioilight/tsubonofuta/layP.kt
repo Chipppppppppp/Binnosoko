@@ -15,5 +15,6 @@ class layP : IXposedHookLoadPackage {
 
         val config = AppConfig.newInstanceForHookedApp()
         NativeAdRemover(config, lpParam).register()
+        VideoAdRemover(config, lpParam).register()
     }
 }

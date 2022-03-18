@@ -6,13 +6,13 @@ import android.content.SharedPreferences
 import android.os.Environment
 import de.robv.android.xposed.XSharedPreferences
 import java.io.File
-import java.lang.Exception
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 class AppConfig {
     var hideInlineAd by BooleanPreference("inline", true)
     var hideThreadAd by BooleanPreference("thread", true)
+    var hidePastLogAd by BooleanPreference("past_log", true)
 
     private val pref: SharedPreferences
     private var privateMode = false
