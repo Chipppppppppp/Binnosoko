@@ -28,11 +28,11 @@
             app:title="@string/settings_replace_ua_title" />
 
         <EditTextPreference
-            android:key="USER_AGENT"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="@string/settings_ua_title"
             app:dependency="REPLACE_USER_AGENT"
+            app:key="USER_AGENT"
+            app:title="@string/settings_ua_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
