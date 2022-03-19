@@ -11,7 +11,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 class ApiIdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     private val classLoader = lpParam.classLoader
     private val cookieClass = XposedHelpers.findClassIfExists(
-        "com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor",
+        config[AppConfig.Strings.CLASS_COOKIE],
         classLoader
     )
 
