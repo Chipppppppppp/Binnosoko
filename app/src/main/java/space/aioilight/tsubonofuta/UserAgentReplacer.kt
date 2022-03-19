@@ -13,6 +13,7 @@ class UserAgentReplacer(private val config: AppConfig, lpParam: XC_LoadPackage.L
                 return
             }
 
+            XposedBridge.log("Start UserAgentReplacer")
             val userAgent = config[AppConfig.Strings.USER_AGENT]
             XposedHelpers.findAndHookMethod(
                 System::class.java,
