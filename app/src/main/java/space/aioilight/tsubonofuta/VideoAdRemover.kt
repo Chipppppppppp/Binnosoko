@@ -8,19 +8,29 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     companion object {
-        private const val MANAGER_CLASS = "jp.supership.vamp.VAMPManager"
-        private const val REQUEST_CLASS = "jp.supership.vamp.VAMPRequest"
         private const val KEY_ACTIVITY = "tsubonofuta.VideoAdRemover.activity"
         private const val KEY_CALLBACK = "tsubonofuta.VideoAdRemover.callback"
     }
 
     private val classLoader = lpParam.classLoader
-    private val managerClass = XposedHelpers.findClass(MANAGER_CLASS, classLoader)
-    private val requestClass = XposedHelpers.findClass(REQUEST_CLASS, classLoader)
+    private val managerClass = XposedHelpers.findClassIfExists(
+        config[AppConfig.Strings.CLASS_VIDEO_MANAGER],
+        classLoader
+    )
+    private val requestClass = XposedHelpers.findClassIfExists(
+        config[AppConfig.Strings.CLASS_VIDEO_REQUEST],
+        classLoader
+    )
+    private val methodCallbackOpen = config[AppConfig.Strings.METHOD_VIDEO_OPEN]
+    private val methodCallbackComplete = config[AppConfig.Strings.METHOD_VIDEO_COMPLETE]
 
     fun register() {
         if (!config[AppConfig.Booleans.HIDE_PAST_LOG_AD]) {
             XposedBridge.log("Hide no video ad")
+            return
+        }
+        if (managerClass == null || requestClass == null) {
+            XposedBridge.log("Video ad class not found")
             return
         }
 
@@ -75,8 +85,14 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                                     Thread.sleep(5000)
                                     activity.runOnUiThread {
                                         try {
-                                            XposedHelpers.callMethod(callback, "onOpened")
-                                            XposedHelpers.callMethod(callback, "onCompleted")
+                                            XposedHelpers.callMethod(
+                                                callback,
+                                                methodCallbackOpen
+                                            )
+                                            XposedHelpers.callMethod(
+                                                callback,
+                                                methodCallbackComplete
+                                            )
                                         } catch (e: Exception) {
                                             XposedBridge.log(e)
                                         }

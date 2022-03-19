@@ -9,20 +9,30 @@ import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
-    companion object {
-        private const val INLINE_AD_CLASS = "jp.syoboi.a2chMate.view.ad.InlineAdContainer"
-        private const val HEAD_AD_CLASS = "jp.syoboi.a2chMate.view.MyAdView"
-        private const val TARGET_ACTIVITY = "jp.syoboi.a2chMate.activity.ResListActivity"
-    }
-
     private val classLoader = lpParam.classLoader
-    private val inlineAdClass = XposedHelpers.findClass(INLINE_AD_CLASS, classLoader)
-    private val headAdClass = XposedHelpers.findClass(HEAD_AD_CLASS, classLoader)
-    private val targetActivityClass = XposedHelpers.findClass(TARGET_ACTIVITY, classLoader)
+    private val inlineAdClass =
+        XposedHelpers.findClassIfExists(
+            config[AppConfig.Strings.CLASS_INLINE_AD],
+            classLoader
+        )
+    private val headAdClass =
+        XposedHelpers.findClassIfExists(
+            config[AppConfig.Strings.CLASS_THREAD_AD],
+            classLoader
+        )
+    private val targetActivityClass =
+        XposedHelpers.findClassIfExists(
+            config[AppConfig.Strings.CLASS_TARGET_ACTIVITY],
+            classLoader
+        )
 
     fun register() {
         if (!config[AppConfig.Booleans.HIDE_INLINE_AD] && !config[AppConfig.Booleans.HIDE_THREAD_AD]) {
             XposedBridge.log("Hide no native ad")
+            return
+        }
+        if (inlineAdClass == null && headAdClass == null) {
+            XposedBridge.log("Native ad class not found")
             return
         }
 
@@ -82,7 +92,7 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
             return true
         }
         if (config[AppConfig.Booleans.HIDE_THREAD_AD] && view::class.java == headAdClass) {
-            if (view.context::class.java == targetActivityClass) {
+            if (targetActivityClass == null || view.context::class.java == targetActivityClass) {
                 return true
             }
         }

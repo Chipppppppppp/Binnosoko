@@ -12,6 +12,14 @@
     <string name="settings_replace_ua_title">User-Agentの変更</string>
     <string name="settings_replace_ua_desc">ChMateのUser-Agentを変更します。</string>
     <string name="settings_ua_title">User-Agent</string>
+    <string name="settings_advanced_header">高度な設定</string>
+    <string name="settings_class_inline_ad_title">InlineAdContainerクラス</string>
+    <string name="settings_class_thread_ad_title">MyAdViewクラス</string>
+    <string name="settings_class_video_manager_title">VAMPManagerクラス</string>
+    <string name="settings_class_video_request_title">VAMPRequestクラス</string>
+    <string name="settings_method_video_open_title">VAMPManager.*.onOpenedメソッド</string>
+    <string name="settings_method_video_complete_title">VAMPManager.*.onCompletedメソッド</string>
+    <string name="settings_class_noad_target_title">対象Activity</string>
     <string name="settings_about_header">アプリについて</string>
     <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
     <string name="settings_status_title">%1s バージョン %2s</string>

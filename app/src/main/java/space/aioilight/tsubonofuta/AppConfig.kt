@@ -18,6 +18,28 @@ class AppConfig : PreferenceDataStore {
 
     enum class Strings(val prefKey: String, val defaultValue: String) {
         USER_AGENT("ua", System.getProperty("http.agent") ?: ""),
+        CLASS_THREAD_AD(
+            "thread_cls",
+            "jp.syoboi.a2chMate.view.MyAdView"
+        ),
+        CLASS_INLINE_AD(
+            "inline_cls",
+            "jp.syoboi.a2chMate.view.ad.InlineAdContainer"
+        ),
+        CLASS_TARGET_ACTIVITY(
+            "noad_target_activity",
+            "jp.syoboi.a2chMate.activity.ResListActivity"
+        ),
+        CLASS_VIDEO_MANAGER(
+            "video_manager_cls",
+            "jp.supership.vamp.VAMPManager"
+        ),
+        CLASS_VIDEO_REQUEST(
+            "video_request_cls",
+            "jp.supership.vamp.VAMPRequest"
+        ),
+        METHOD_VIDEO_OPEN("video_open_method", "onOpened"),
+        METHOD_VIDEO_COMPLETE("video_complete_method", "onCompleted"),
     }
 
     private val pref: SharedPreferences

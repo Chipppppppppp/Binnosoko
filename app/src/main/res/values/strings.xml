@@ -13,6 +13,14 @@
     <string name="settings_replace_ua_title">Enable replacing User-Agent</string>
     <string name="settings_replace_ua_desc">Modify User-Agent of ChMate client.</string>
     <string name="settings_ua_title">User-Agent</string>
+    <string name="settings_advanced_header">Advanced</string>
+    <string name="settings_class_inline_ad_title">InlineAdContainer class</string>
+    <string name="settings_class_thread_ad_title">MyAdView class</string>
+    <string name="settings_class_video_manager_title">VAMPManager class</string>
+    <string name="settings_class_video_request_title">VAMPRequest class</string>
+    <string name="settings_method_video_open_title">VAMPManager.*.onOpened method</string>
+    <string name="settings_method_video_complete_title">VAMPManager.*.onCompleted method</string>
+    <string name="settings_class_noad_target_title">Target activity</string>
     <string name="settings_about_header">About</string>
     <string name="settings_github_title" translatable="false">AioiLight/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
