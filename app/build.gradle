@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "space.aioilight.tsubonofuta"
+        applicationId "com.nonnonstop.tsubonofuta"
         minSdk 23
         targetSdk 32
         versionCode 15
