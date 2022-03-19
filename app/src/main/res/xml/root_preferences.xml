@@ -1,5 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/title_activity_settings">
 
     <PreferenceCategory app:title="@string/settings_ad_header">
 
@@ -33,59 +34,6 @@
             app:dependency="REPLACE_USER_AGENT"
             app:key="USER_AGENT"
             app:title="@string/settings_ua_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/settings_advanced_header">
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="CLASS_THREAD_AD"
-            app:title="@string/settings_class_thread_ad_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="CLASS_INLINE_AD"
-            app:title="@string/settings_class_inline_ad_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="CLASS_VIDEO_MANAGER"
-            app:title="@string/settings_class_video_manager_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="CLASS_VIDEO_REQUEST"
-            app:title="@string/settings_class_video_request_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="METHOD_VIDEO_OPEN"
-            app:title="@string/settings_method_video_open_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="METHOD_VIDEO_COMPLETE"
-            app:title="@string/settings_method_video_complete_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="CLASS_TARGET_ACTIVITY"
-            app:title="@string/settings_class_noad_target_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
