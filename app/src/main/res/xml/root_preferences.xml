@@ -1,0 +1,48 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_ad_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="thread"
+            app:summary="@string/settings_thread_desc"
+            app:title="@string/settings_thread_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="inline"
+            app:summary="@string/settings_inline_desc"
+            app:title="@string/settings_inline_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="past_log"
+            app:summary="@string/settings_past_log_desc"
+            app:title="@string/settings_past_log_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_about_header">
+
+        <Preference
+            app:key="github"
+            app:summary="@string/settings_github_desc"
+            app:title="@string/settings_github_title">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/repository_url" />
+        </Preference>
+
+        <Preference
+            app:key="status"
+            app:summary="@string/settings_status_desc"
+            app:title="@string/settings_status_title">
+            <intent
+                android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+                android:targetPackage="space.aioilight.tsubonofuta" />
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

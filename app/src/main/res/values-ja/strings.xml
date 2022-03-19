@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tsubonofuta</string>
+    <string name="settings_ad_header">広告</string>
     <string name="settings_thread_title">スレッド内広告を削除</string>
     <string name="settings_thread_desc">スレッド内広告を削除します。ホーム画面には適用されません (必要な場合は ChMate+ を購入してください)。</string>
     <string name="settings_inline_title">インライン広告を削除</string>
     <string name="settings_inline_desc">ChMate 0.8.10.150 以降に追加されたインライン広告を削除します。</string>
     <string name="settings_past_log_title">過去ログ取得時の広告を削除</string>
     <string name="settings_past_log_desc">過去ログを取得する際の動画広告を削除します。</string>
+    <string name="settings_about_header">アプリについて</string>
     <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
     <string name="settings_status_title">%1s バージョン %2s</string>
     <string name="settings_status_desc">タップしてライセンスを閲覧する。</string>
