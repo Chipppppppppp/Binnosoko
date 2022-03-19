@@ -4,22 +4,36 @@
     <PreferenceCategory app:title="@string/settings_ad_header">
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:key="thread"
+            app:key="HIDE_THREAD_AD"
             app:summary="@string/settings_thread_desc"
             app:title="@string/settings_thread_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:key="inline"
+            app:key="HIDE_INLINE_AD"
             app:summary="@string/settings_inline_desc"
             app:title="@string/settings_inline_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:key="past_log"
+            app:key="HIDE_PAST_LOG_AD"
             app:summary="@string/settings_past_log_desc"
             app:title="@string/settings_past_log_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_client_header">
+
+        <SwitchPreferenceCompat
+            app:key="REPLACE_USER_AGENT"
+            app:summary="@string/settings_replace_ua_desc"
+            app:title="@string/settings_replace_ua_title" />
+
+        <EditTextPreference
+            android:key="USER_AGENT"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/settings_ua_title"
+            app:dependency="REPLACE_USER_AGENT"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

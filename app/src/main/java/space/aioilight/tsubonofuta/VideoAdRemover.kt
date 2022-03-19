@@ -19,7 +19,7 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
     private val requestClass = XposedHelpers.findClass(REQUEST_CLASS, classLoader)
 
     fun register() {
-        if (!config.hidePastLogAd) {
+        if (!config[AppConfig.Booleans.HIDE_PAST_LOG_AD]) {
             XposedBridge.log("Hide no video ad")
             return
         }

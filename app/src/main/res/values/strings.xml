@@ -9,6 +9,10 @@
     <string name="settings_inline_desc">Removes inline ads added since ChMate 0.8.10.150.</string>
     <string name="settings_past_log_title">Remove past log ads</string>
     <string name="settings_past_log_desc">Removes ads at loading past log.</string>
+    <string name="settings_client_header">Client</string>
+    <string name="settings_replace_ua_title">Enable replacing User-Agent</string>
+    <string name="settings_replace_ua_desc">Modify User-Agent of ChMate client.</string>
+    <string name="settings_ua_title">User-Agent</string>
     <string name="settings_about_header">About</string>
     <string name="settings_github_title" translatable="false">AioiLight/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>

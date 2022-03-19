@@ -20,9 +20,9 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            preferenceManager.preferenceDataStore = AppConfig.newInstanceForModule(requireContext())
+            val config = AppConfig.newInstanceForModule(requireContext())
+            preferenceManager.preferenceDataStore = config
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-
             findPreference<Preference>("status")?.title = resources.getString(
                 R.string.settings_status_title,
                 resources.getString(R.string.app_name),

@@ -21,7 +21,7 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
     private val targetActivityClass = XposedHelpers.findClass(TARGET_ACTIVITY, classLoader)
 
     fun register() {
-        if (!config.hideInlineAd && !config.hideThreadAd) {
+        if (!config[AppConfig.Booleans.HIDE_INLINE_AD] && !config[AppConfig.Booleans.HIDE_THREAD_AD]) {
             XposedBridge.log("Hide no native ad")
             return
         }
@@ -78,10 +78,10 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
     }
 
     private fun isTargetView(view: View): Boolean {
-        if (config.hideInlineAd && view::class.java == inlineAdClass) {
+        if (config[AppConfig.Booleans.HIDE_INLINE_AD] && view::class.java == inlineAdClass) {
             return true
         }
-        if (config.hideThreadAd && view::class.java == headAdClass) {
+        if (config[AppConfig.Booleans.HIDE_THREAD_AD] && view::class.java == headAdClass) {
             if (view.context::class.java == targetActivityClass) {
                 return true
             }

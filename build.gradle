@@ -1,7 +1,4 @@
 buildscript {
-    ext {
-        compose_version = '1.0.1'
-    }
     dependencies {
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.5'
     }
