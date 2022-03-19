@@ -21,6 +21,10 @@ class ApiIdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPa
                 XposedBridge.log("Not remove API ID")
                 return
             }
+            if (cookieClass == null) {
+                XposedBridge.log("Cookie class not found")
+                return
+            }
 
             XposedBridge.log("Start ApiIdRemover")
             val prefApiName = config[AppConfig.Strings.PREF_API_NAME]
