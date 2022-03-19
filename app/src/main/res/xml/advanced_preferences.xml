@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/settings_advanced_header">
 
-    <PreferenceCategory app:title="@string/settings_advanced_header">
+    <PreferenceCategory app:title="@string/settings_ad_header">
 
         <EditTextPreference
             android:selectAllOnFocus="true"
@@ -51,6 +51,31 @@
             android:singleLine="true"
             app:key="CLASS_TARGET_ACTIVITY"
             app:title="@string/settings_class_noad_target_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_ad_header">
+
+        <EditTextPreference
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            app:key="CLASS_COOKIE"
+            app:title="@string/settings_class_cookie_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            app:key="PREF_API_NAME"
+            app:title="@string/settings_pref_api_name_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            app:key="PREF_API_ID_KEY"
+            app:title="@string/settings_pref_api_id_key_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

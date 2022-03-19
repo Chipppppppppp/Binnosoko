@@ -5,4 +5,5 @@ F*ck ChMate's ads
 * Remove inline ads
 * Remove video ads
 * Modify User-Agent
+* Remove API post key
 * Support Android 6.0-12.0

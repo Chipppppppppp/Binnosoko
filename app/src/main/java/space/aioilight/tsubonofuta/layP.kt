@@ -17,5 +17,6 @@ class layP : IXposedHookLoadPackage {
         NativeAdRemover(config, lpParam).register()
         VideoAdRemover(config, lpParam).register()
         UserAgentReplacer(config, lpParam).register()
+        ApiIdRemover(config, lpParam).register()
     }
 }

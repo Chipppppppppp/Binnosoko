@@ -13,6 +13,8 @@
     <string name="settings_replace_ua_title">Enable replacing User-Agent</string>
     <string name="settings_replace_ua_desc">Modify User-Agent of ChMate client.</string>
     <string name="settings_ua_title">User-Agent</string>
+    <string name="settings_remove_api_id_title">Make API post key removable</string>
+    <string name="settings_remove_api_id_desc">When removing your cookie, also removes the API post key stored in ChMate (X-MonaKey).</string>
     <string name="settings_advanced_header">Advanced setting</string>
     <string name="settings_class_inline_ad_title">InlineAdContainer class</string>
     <string name="settings_class_thread_ad_title">MyAdView class</string>
@@ -21,6 +23,9 @@
     <string name="settings_method_video_open_title">VAMPManager.*.onOpened method</string>
     <string name="settings_method_video_complete_title">VAMPManager.*.onCompleted method</string>
     <string name="settings_class_noad_target_title">Target activity</string>
+    <string name="settings_class_cookie_title">SharedPrefsCookiePersistor class</string>
+    <string name="settings_pref_api_name_title">2chapi preference file</string>
+    <string name="settings_pref_api_id_key_title">2chapi_monakey preference key</string>
     <string name="settings_about_header">About</string>
     <string name="settings_github_title" translatable="false">nonnonstop/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>

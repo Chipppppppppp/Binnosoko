@@ -15,6 +15,7 @@ class AppConfig : PreferenceDataStore {
         HIDE_THREAD_AD("thread", true),
         HIDE_PAST_LOG_AD("past_log", true),
         REPLACE_USER_AGENT("ua_enabled", false),
+        REMOVE_API_ID("api_id", true),
     }
 
     enum class Strings(val prefKey: String, val defaultValue: String) {
@@ -41,6 +42,12 @@ class AppConfig : PreferenceDataStore {
         ),
         METHOD_VIDEO_OPEN("video_open_method", "onOpened"),
         METHOD_VIDEO_COMPLETE("video_complete_method", "onCompleted"),
+        CLASS_COOKIE(
+            "cookie_cls",
+            "com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor"
+        ),
+        PREF_API_NAME("api_name", "2chapi"),
+        PREF_API_ID_KEY("api_id_key", "2chapi_monakey"),
     }
 
     private val pref: SharedPreferences

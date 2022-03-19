@@ -36,6 +36,11 @@
             app:title="@string/settings_ua_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="REMOVE_API_ID"
+            app:summary="@string/settings_remove_api_id_desc"
+            app:title="@string/settings_remove_api_id_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/settings_about_header">
