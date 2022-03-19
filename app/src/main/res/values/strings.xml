@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Tsubonofuta</string>
-    <string name="repository_url" translatable="false">https://github.com/AioiLight/Tsubonofuta</string>
-    <string name="title_activity_settings" translatable="false">Tsubonofuta</string>
+    <string name="app_name">Tsubonofuta (Modify)</string>
+    <string name="repository_url" translatable="false">https://github.com/nonnonstop/Tsubonofuta</string>
+    <string name="title_activity_settings" translatable="false">Tsubonofuta (Modify)</string>
     <string name="settings_ad_header">Advertisement</string>
     <string name="settings_thread_title">Remove ads in thread</string>
     <string name="settings_thread_desc">Removes ads in thread viewer. It does not apply to the home screen (Purchase ChMate+ if you want).</string>
@@ -22,7 +22,7 @@
     <string name="settings_method_video_complete_title">VAMPManager.*.onCompleted method</string>
     <string name="settings_class_noad_target_title">Target activity</string>
     <string name="settings_about_header">About</string>
-    <string name="settings_github_title" translatable="false">AioiLight/GitHub</string>
+    <string name="settings_github_title" translatable="false">nonnonstop/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
     <string name="settings_status_title">%1s version %2s</string>
     <string name="settings_status_desc">Tap to view licenses.</string>

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Environment
 import androidx.preference.PreferenceDataStore
+import com.nonnonstop.tsubonofuta.BuildConfig
 import de.robv.android.xposed.XSharedPreferences
 import java.io.File
 

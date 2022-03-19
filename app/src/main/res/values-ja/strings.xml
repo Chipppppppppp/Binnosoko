@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tsubonofuta</string>
+    <string name="app_name">Tsubonofuta (Modify)</string>
     <string name="settings_ad_header">広告</string>
     <string name="settings_thread_title">スレッド内広告を削除</string>
     <string name="settings_thread_desc">スレッド内広告を削除します。ホーム画面には適用されません (必要な場合は ChMate+ を購入してください)。</string>
