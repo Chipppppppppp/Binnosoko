@@ -60,7 +60,7 @@
             app:title="@string/settings_status_title">
             <intent
                 android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
-                android:targetPackage="space.aioilight.tsubonofuta" />
+                android:targetPackage="com.nonnonstop.tsubonofuta" />
         </Preference>
 
     </PreferenceCategory>
