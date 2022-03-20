@@ -55,7 +55,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/settings_ad_header">
+    <PreferenceCategory app:title="@string/settings_client_header">
 
         <EditTextPreference
             android:selectAllOnFocus="true"
