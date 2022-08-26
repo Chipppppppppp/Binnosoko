@@ -13,8 +13,8 @@
     <string name="settings_replace_ua_title">Enable replacing User-Agent</string>
     <string name="settings_replace_ua_desc">Modify User-Agent of ChMate client.</string>
     <string name="settings_ua_title">User-Agent</string>
-    <string name="settings_remove_api_id_title">Make API post key removable</string>
-    <string name="settings_remove_api_id_desc">When removing your cookie, also removes the API post key stored in ChMate (X-MonaKey).</string>
+    <string name="settings_remove_api_id_title">Make MonaKey removable</string>
+    <string name="settings_remove_api_id_desc">When removing your cookie, also removes MonaKey (a post key).</string>
     <string name="settings_advanced_header">Advanced setting</string>
     <string name="settings_class_inline_ad_title">InlineAdContainer class</string>
     <string name="settings_class_thread_ad_title">MyAdView class</string>
@@ -29,6 +29,6 @@
     <string name="settings_about_header">About</string>
     <string name="settings_github_title" translatable="false">nonnonstop/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
-    <string name="settings_status_title">%1s version %2s</string>
+    <string name="settings_status_title">%1$s version %2$s</string>
     <string name="settings_status_desc">Tap to view licenses.</string>
 </resources>
