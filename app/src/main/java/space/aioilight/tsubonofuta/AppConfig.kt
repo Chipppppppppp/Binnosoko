@@ -51,7 +51,6 @@ class AppConfig : PreferenceDataStore {
     }
 
     private val pref: SharedPreferences
-    private var privateMode = false
 
     companion object {
         private const val FILE_NAME = "tsuboprefs"
@@ -75,16 +74,12 @@ class AppConfig : PreferenceDataStore {
         pref = try {
             context.getSharedPreferences(FILE_NAME, Context.MODE_WORLD_READABLE)
         } catch (e: SecurityException) {
-            privateMode = true
             context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
         }
     }
 
     @SuppressLint("SetWorldReadable")
     private fun makeWorldReadable() {
-        if (!privateMode)
-            return
-
         try {
             val packageDir = File(
                 Environment.getDataDirectory(),
