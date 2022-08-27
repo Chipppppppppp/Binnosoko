@@ -15,7 +15,7 @@ class AppConfig : PreferenceDataStore {
         HIDE_THREAD_AD("thread", true),
         HIDE_PAST_LOG_AD("past_log", true),
         REPLACE_USER_AGENT("ua_enabled", false),
-        REMOVE_API_ID("api_id", false),
+        REMOVE_API_ID("api_id", true),
     }
 
     enum class Strings(val prefKey: String, val defaultValue: String) {
