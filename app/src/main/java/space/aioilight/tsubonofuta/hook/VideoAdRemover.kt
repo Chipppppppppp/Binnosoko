@@ -1,10 +1,11 @@
-package space.aioilight.tsubonofuta
+package space.aioilight.tsubonofuta.hook
 
 import android.app.Activity
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import space.aioilight.tsubonofuta.AppConfig
 
 class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     companion object {
@@ -26,15 +27,15 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
 
     fun register() {
         if (!config[AppConfig.Booleans.HIDE_PAST_LOG_AD]) {
-            XposedBridge.log("Hide no video ad")
+            XposedBridge.log("VideoAdRemover disabled")
             return
         }
         if (managerClass == null || requestClass == null) {
-            XposedBridge.log("Video ad class not found")
+            XposedBridge.log("VideoAdRemover failed: Class not found")
             return
         }
 
-        XposedBridge.log("Start VideoAdRemover")
+        XposedBridge.log("VideoAdRemover starting")
         try {
             XposedBridge.hookMethod(
                 XposedHelpers.findConstructorBestMatch(

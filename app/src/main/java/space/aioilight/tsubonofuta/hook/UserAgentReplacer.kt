@@ -1,19 +1,20 @@
-package space.aioilight.tsubonofuta
+package space.aioilight.tsubonofuta.hook
 
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import space.aioilight.tsubonofuta.AppConfig
 
 class UserAgentReplacer(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     fun register() {
         try {
             if (!config[AppConfig.Booleans.REPLACE_USER_AGENT]) {
-                XposedBridge.log("Not replace User-Agent")
+                XposedBridge.log("UserAgentReplacer disabled")
                 return
             }
 
-            XposedBridge.log("Start UserAgentReplacer")
+            XposedBridge.log("UserAgentReplacer starting")
             val userAgent = config[AppConfig.Strings.USER_AGENT]
             XposedHelpers.findAndHookMethod(
                 System::class.java,

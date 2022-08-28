@@ -1,7 +1,8 @@
-package space.aioilight.tsubonofuta
+package space.aioilight.tsubonofuta.hook
 
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import space.aioilight.tsubonofuta.AppConfig
 
 class ModuleMain : IXposedHookLoadPackage {
     companion object {
@@ -17,6 +18,6 @@ class ModuleMain : IXposedHookLoadPackage {
         NativeAdRemover(config, lpParam).register()
         VideoAdRemover(config, lpParam).register()
         UserAgentReplacer(config, lpParam).register()
-        ApiIdRemover(config, lpParam).register()
+        MonaKeyRemover(config, lpParam).register()
     }
 }

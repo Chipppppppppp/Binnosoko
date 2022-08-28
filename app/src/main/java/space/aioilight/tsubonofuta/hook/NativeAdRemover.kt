@@ -1,4 +1,4 @@
-package space.aioilight.tsubonofuta
+package space.aioilight.tsubonofuta.hook
 
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import space.aioilight.tsubonofuta.AppConfig
 
 class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
     private val classLoader = lpParam.classLoader
@@ -28,15 +29,15 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
 
     fun register() {
         if (!config[AppConfig.Booleans.HIDE_INLINE_AD] && !config[AppConfig.Booleans.HIDE_THREAD_AD]) {
-            XposedBridge.log("Hide no native ad")
+            XposedBridge.log("NativeAdRemover disabled")
             return
         }
         if (inlineAdClass == null && headAdClass == null) {
-            XposedBridge.log("Native ad class not found")
+            XposedBridge.log("NativeAdRemover failed: Class not found")
             return
         }
 
-        XposedBridge.log("Start NativeAdRemover")
+        XposedBridge.log("NativeAdRemover starting")
         try {
             XposedHelpers.findAndHookMethod(
                 ViewGroup::class.java,
