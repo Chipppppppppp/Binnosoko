@@ -7,49 +7,49 @@
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_THREAD_AD"
+            app:key="threadClass"
             app:title="@string/settings_class_thread_ad_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_INLINE_AD"
+            app:key="inlineClass"
             app:title="@string/settings_class_inline_ad_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_VIDEO_MANAGER"
+            app:key="videoManagerClass"
             app:title="@string/settings_class_video_manager_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_VIDEO_REQUEST"
+            app:key="videoRequestClass"
             app:title="@string/settings_class_video_request_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="METHOD_VIDEO_OPEN"
+            app:key="videoOpenMethod"
             app:title="@string/settings_method_video_open_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="METHOD_VIDEO_COMPLETE"
+            app:key="videoCompleteMethod"
             app:title="@string/settings_method_video_complete_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_TARGET_ACTIVITY"
+            app:key="adActivityClass"
             app:title="@string/settings_class_noad_target_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -60,21 +60,21 @@
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="CLASS_COOKIE"
+            app:key="cookieClass"
             app:title="@string/settings_class_cookie_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="PREF_API_NAME"
+            app:key="prefMonaKeyFile"
             app:title="@string/settings_pref_api_name_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:key="PREF_API_ID_KEY"
+            app:key="prefMonaKeyName"
             app:title="@string/settings_pref_api_id_key_title"
             app:useSimpleSummaryProvider="true" />
 

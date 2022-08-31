@@ -19,7 +19,6 @@ F*ck ChMate's ads
 
 ## Note
 
-* If SELinux is enabled, the setting may not be applied.
 * The current version of LSPatch (0.3.1) has some bugs. Use [hotfix version](https://github.com/nonnonstop/LSPatch/releases) until the bugs are fixed.
 
 ## Credit

@@ -1,21 +1,29 @@
 package space.aioilight.tsubonofuta.hook
 
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.AppConfig
+import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.util.Logger
 
-class UserAgentReplacer(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
-    fun register() {
+class UserAgentReplacer : IHook {
+    companion object {
+        private const val TAG = "Futa-UserAgentReplacer"
+    }
+
+    override fun register(
+        config: ConfigResolver,
+        lpParam: XC_LoadPackage.LoadPackageParam
+    ) {
         try {
-            if (!config[AppConfig.Booleans.REPLACE_USER_AGENT]) {
-                XposedBridge.log("UserAgentReplacer disabled")
+            val mainConfig = config.mainConfig
+            if (!mainConfig.replaceUserAgent) {
+                Logger.i(TAG, "UserAgentReplacer disabled")
                 return
             }
 
-            XposedBridge.log("UserAgentReplacer starting")
-            val userAgent = config[AppConfig.Strings.USER_AGENT]
+            Logger.i(TAG, "UserAgentReplacer starting")
+            val userAgent = mainConfig.userAgent
             XposedHelpers.findAndHookMethod(
                 System::class.java,
                 "getProperty",
@@ -27,13 +35,13 @@ class UserAgentReplacer(private val config: AppConfig, lpParam: XC_LoadPackage.L
                                 return
                             param.result = userAgent
                         } catch (e: Exception) {
-                            XposedBridge.log(e)
+                            Logger.w(TAG, e)
                         }
                     }
                 }
             )
         } catch (e: Exception) {
-            XposedBridge.log(e)
+            Logger.w(TAG, e)
         }
     }
 }

@@ -5,37 +5,44 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.AppConfig
+import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.util.Logger
 
-class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
+class VideoAdRemover : IHook {
     companion object {
+        private const val TAG = "Futa-VideoAdRemover"
         private const val KEY_ACTIVITY = "tsubonofuta.VideoAdRemover.activity"
         private const val KEY_CALLBACK = "tsubonofuta.VideoAdRemover.callback"
     }
 
-    private val classLoader = lpParam.classLoader
-    private val managerClass = XposedHelpers.findClassIfExists(
-        config[AppConfig.Strings.CLASS_VIDEO_MANAGER],
-        classLoader
-    )
-    private val requestClass = XposedHelpers.findClassIfExists(
-        config[AppConfig.Strings.CLASS_VIDEO_REQUEST],
-        classLoader
-    )
-    private val methodCallbackOpen = config[AppConfig.Strings.METHOD_VIDEO_OPEN]
-    private val methodCallbackComplete = config[AppConfig.Strings.METHOD_VIDEO_COMPLETE]
-
-    fun register() {
-        if (!config[AppConfig.Booleans.HIDE_PAST_LOG_AD]) {
-            XposedBridge.log("VideoAdRemover disabled")
+    override fun register(
+        config: ConfigResolver,
+        lpParam: XC_LoadPackage.LoadPackageParam
+    ) {
+        val mainConfig = config.mainConfig
+        if (!mainConfig.hideLogAd) {
+            Logger.i(TAG, "VideoAdRemover disabled")
             return
         }
+
+        val internalConfig = config.internalConfig
+        val classLoader = lpParam.classLoader
+        val managerClass = XposedHelpers.findClassIfExists(
+            internalConfig.videoManagerClass,
+            classLoader
+        )
+        val requestClass = XposedHelpers.findClassIfExists(
+            internalConfig.videoRequestClass,
+            classLoader
+        )
+        val methodCallbackOpen = internalConfig.videoOpenMethod
+        val methodCallbackComplete = internalConfig.videoCompleteMethod
         if (managerClass == null || requestClass == null) {
-            XposedBridge.log("VideoAdRemover failed: Class not found")
+            Logger.i(TAG, "VideoAdRemover failed: Class not found")
             return
         }
 
-        XposedBridge.log("VideoAdRemover starting")
+        Logger.i(TAG, "VideoAdRemover starting")
         try {
             XposedBridge.hookMethod(
                 XposedHelpers.findConstructorBestMatch(
@@ -58,7 +65,7 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                                 param.args[2]
                             )
                         } catch (e: Exception) {
-                            XposedBridge.log(e)
+                            Logger.w(TAG, e)
                         }
                     }
                 }
@@ -95,20 +102,20 @@ class VideoAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                                                 methodCallbackComplete
                                             )
                                         } catch (e: Exception) {
-                                            XposedBridge.log(e)
+                                            Logger.w(TAG, e)
                                         }
                                     }
                                 }.start()
                                 param.result = null
                             } catch (e: Exception) {
-                                XposedBridge.log(e)
+                                Logger.w(TAG, e)
                             }
                         }
                     }
                 )
             }
         } catch (e: Exception) {
-            XposedBridge.log(e)
+            Logger.w(TAG, e)
         }
     }
 }

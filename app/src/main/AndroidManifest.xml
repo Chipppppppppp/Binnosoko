@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tsubonofuta">
         <activity
-            android:name="space.aioilight.tsubonofuta.SettingsActivity"
+            android:name="space.aioilight.tsubonofuta.ui.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.Tsubonofuta.NoActionBar">
@@ -20,6 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="space.aioilight.tsubonofuta.config.ConfigProvider"
+            android:authorities="space.aioilight.tsubonofuta.provider"
+            android:enabled="true"
+            android:exported="true" />
 
         <meta-data
             android:name="xposedmodule"

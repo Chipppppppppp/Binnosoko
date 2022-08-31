@@ -1,13 +1,15 @@
-package space.aioilight.tsubonofuta
+package space.aioilight.tsubonofuta.ui
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import com.nonnonstop.tsubonofuta.BuildConfig
 import com.nonnonstop.tsubonofuta.R
+import space.aioilight.tsubonofuta.config.ConfigStore
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,29 +38,28 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : BaseSettingsFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setHasOptionsMenu(true)
         }
 
+        override fun onLoadConfigStore(): ConfigStore {
+            return ConfigStore.from(configResolver.mainConfig)
+        }
+
+        override fun onSaveConfigStore(configStore: ConfigStore) {
+            configResolver.mainConfig = configStore.convert()
+        }
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            preferenceManager.preferenceDataStore = AppConfig.newInstanceForModule(requireContext())
+            super.onCreatePreferences(savedInstanceState, rootKey)
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             findPreference<Preference>("status")?.title = resources.getString(
                 R.string.settings_status_title,
                 resources.getString(R.string.app_name),
                 BuildConfig.VERSION_NAME
             )
-        }
-
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View {
-            activity?.title = preferenceScreen.title
-            return super.onCreateView(inflater, container, savedInstanceState)
         }
 
         override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,7 +70,7 @@ class SettingsActivity : AppCompatActivity() {
             return when (item.itemId) {
                 R.id.advanced -> {
                     parentFragmentManager.commit {
-                        replace(R.id.settings, AdvancedSettingsFragment())
+                        replace(R.id.settings, InternalSettingsFragment())
                         addToBackStack(null)
                     }
                     true
@@ -79,19 +80,18 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    class AdvancedSettingsFragment : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            preferenceManager.preferenceDataStore = AppConfig.newInstanceForModule(requireContext())
-            setPreferencesFromResource(R.xml.advanced_preferences, rootKey)
+    class InternalSettingsFragment : BaseSettingsFragment() {
+        override fun onLoadConfigStore(): ConfigStore {
+            return ConfigStore.from(configResolver.internalConfig)
         }
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View {
-            activity?.title = preferenceScreen.title
-            return super.onCreateView(inflater, container, savedInstanceState)
+        override fun onSaveConfigStore(configStore: ConfigStore) {
+            configResolver.internalConfig = configStore.convert()
+        }
+
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            super.onCreatePreferences(savedInstanceState, rootKey)
+            setPreferencesFromResource(R.xml.advanced_preferences, rootKey)
         }
     }
 }

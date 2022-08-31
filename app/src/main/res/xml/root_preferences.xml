@@ -5,17 +5,17 @@
     <PreferenceCategory app:title="@string/settings_ad_header">
 
         <SwitchPreferenceCompat
-            app:key="HIDE_THREAD_AD"
+            app:key="hideThreadAd"
             app:summary="@string/settings_thread_desc"
             app:title="@string/settings_thread_title" />
 
         <SwitchPreferenceCompat
-            app:key="HIDE_INLINE_AD"
+            app:key="hideInlineAd"
             app:summary="@string/settings_inline_desc"
             app:title="@string/settings_inline_title" />
 
         <SwitchPreferenceCompat
-            app:key="HIDE_PAST_LOG_AD"
+            app:key="hideLogAd"
             app:summary="@string/settings_past_log_desc"
             app:title="@string/settings_past_log_title" />
 
@@ -24,20 +24,20 @@
     <PreferenceCategory app:title="@string/settings_client_header">
 
         <SwitchPreferenceCompat
-            app:key="REPLACE_USER_AGENT"
+            app:key="replaceUserAgent"
             app:summary="@string/settings_replace_ua_desc"
             app:title="@string/settings_replace_ua_title" />
 
         <EditTextPreference
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            app:dependency="REPLACE_USER_AGENT"
-            app:key="USER_AGENT"
+            app:dependency="replaceUserAgent"
+            app:key="userAgent"
             app:title="@string/settings_ua_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="REMOVE_API_ID"
+            app:key="removeMonaKey"
             app:summary="@string/settings_remove_api_id_desc"
             app:title="@string/settings_remove_api_id_title" />
 

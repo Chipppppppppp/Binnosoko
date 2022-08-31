@@ -4,40 +4,58 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.AppConfig
+import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.util.Logger
 
-class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
-    private val classLoader = lpParam.classLoader
-    private val inlineAdClass =
-        XposedHelpers.findClassIfExists(
-            config[AppConfig.Strings.CLASS_INLINE_AD],
-            classLoader
-        )
-    private val headAdClass =
-        XposedHelpers.findClassIfExists(
-            config[AppConfig.Strings.CLASS_THREAD_AD],
-            classLoader
-        )
-    private val targetActivityClass =
-        XposedHelpers.findClassIfExists(
-            config[AppConfig.Strings.CLASS_TARGET_ACTIVITY],
-            classLoader
-        )
+class NativeAdRemover : IHook {
+    companion object {
+        private const val TAG = "Futa-NativeAdRemover"
+    }
 
-    fun register() {
-        if (!config[AppConfig.Booleans.HIDE_INLINE_AD] && !config[AppConfig.Booleans.HIDE_THREAD_AD]) {
-            XposedBridge.log("NativeAdRemover disabled")
+    override fun register(
+        config: ConfigResolver,
+        lpParam: XC_LoadPackage.LoadPackageParam
+    ) {
+        val mainConfig = config.mainConfig
+        if (!mainConfig.hideInlineAd && !mainConfig.hideThreadAd) {
+            Logger.i(TAG, "NativeAdRemover disabled")
             return
         }
+
+        val internalConfig = config.internalConfig
+        val classLoader = lpParam.classLoader
+        val inlineAdClass = XposedHelpers.findClassIfExists(
+            internalConfig.inlineClass,
+            classLoader
+        )
+        val headAdClass = XposedHelpers.findClassIfExists(
+            internalConfig.threadClass,
+            classLoader
+        )
+        val targetActivityClass = XposedHelpers.findClassIfExists(
+            internalConfig.adActivityClass,
+            classLoader
+        )
         if (inlineAdClass == null && headAdClass == null) {
-            XposedBridge.log("NativeAdRemover failed: Class not found")
+            Logger.i(TAG, "NativeAdRemover failed: Class not found")
             return
         }
 
-        XposedBridge.log("NativeAdRemover starting")
+        Logger.i(TAG, "NativeAdRemover starting")
+        fun isTargetView(view: View): Boolean {
+            val cls = view::class.java
+            if (mainConfig.hideInlineAd && cls == inlineAdClass) {
+                return true
+            }
+            if (mainConfig.hideThreadAd && cls == headAdClass) {
+                if (targetActivityClass == null || view.context::class.java == targetActivityClass) {
+                    return true
+                }
+            }
+            return false
+        }
         try {
             XposedHelpers.findAndHookMethod(
                 ViewGroup::class.java,
@@ -52,7 +70,7 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
                             view.removeAllViews()
                             param.result = null
                         } catch (e: Exception) {
-                            XposedBridge.log(e)
+                            Logger.w(TAG, e)
                         }
                     }
                 }
@@ -78,25 +96,13 @@ class NativeAdRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Loa
                             methodSetMeasuredDimension.invoke(view, 0, 0)
                             param.result = null
                         } catch (e: Exception) {
-                            XposedBridge.log(e)
+                            Logger.w(TAG, e)
                         }
                     }
                 }
             )
         } catch (e: Exception) {
-            XposedBridge.log(e)
+            Logger.w(TAG, e)
         }
-    }
-
-    private fun isTargetView(view: View): Boolean {
-        if (config[AppConfig.Booleans.HIDE_INLINE_AD] && view::class.java == inlineAdClass) {
-            return true
-        }
-        if (config[AppConfig.Booleans.HIDE_THREAD_AD] && view::class.java == headAdClass) {
-            if (targetActivityClass == null || view.context::class.java == targetActivityClass) {
-                return true
-            }
-        }
-        return false
     }
 }

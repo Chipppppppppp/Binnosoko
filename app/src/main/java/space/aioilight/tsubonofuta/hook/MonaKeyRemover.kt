@@ -7,29 +7,39 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.AppConfig
+import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.util.Logger
 
-class MonaKeyRemover(private val config: AppConfig, lpParam: XC_LoadPackage.LoadPackageParam) {
-    private val classLoader = lpParam.classLoader
-    private val cookieClass = XposedHelpers.findClassIfExists(
-        config[AppConfig.Strings.CLASS_COOKIE],
-        classLoader
-    )
+class MonaKeyRemover : IHook {
+    companion object {
+        private const val TAG = "Futa-MonaKeyRemover"
+    }
 
-    fun register() {
+    override fun register(
+        config: ConfigResolver,
+        lpParam: XC_LoadPackage.LoadPackageParam
+    ) {
         try {
-            if (!config[AppConfig.Booleans.REMOVE_API_ID]) {
-                XposedBridge.log("MonaKeyRemover disabled")
-                return
-            }
-            if (cookieClass == null) {
-                XposedBridge.log("MonaKeyRemover failed: Class not found")
+            val mainConfig = config.mainConfig
+            if (!mainConfig.removeMonaKey) {
+                Logger.i(TAG, "MonaKeyRemover disabled")
                 return
             }
 
-            XposedBridge.log("MonaKeyRemover starting")
-            val prefApiName = config[AppConfig.Strings.PREF_API_NAME]
-            val prefApiIdKey = config[AppConfig.Strings.PREF_API_ID_KEY]
+            val internalConfig = config.internalConfig
+            val classLoader = lpParam.classLoader
+            val cookieClass = XposedHelpers.findClassIfExists(
+                internalConfig.cookieClass,
+                classLoader
+            )
+            if (cookieClass == null) {
+                Logger.i(TAG, "MonaKeyRemover failed: Class not found")
+                return
+            }
+
+            Logger.i(TAG, "MonaKeyRemover starting")
+            val prefFile = internalConfig.prefMonaKeyFile
+            val prefKey = internalConfig.prefMonaKeyName
             XposedHelpers.findMethodsByExactParameters(
                 cookieClass,
                 Void.TYPE,
@@ -39,21 +49,21 @@ class MonaKeyRemover(private val config: AppConfig, lpParam: XC_LoadPackage.Load
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam?) {
                             try {
-                                val sharedPref = AndroidAppHelper.currentApplication()
-                                    .getSharedPreferences(prefApiName, Context.MODE_PRIVATE)
-                                sharedPref.edit {
-                                    remove(prefApiIdKey)
-                                }
-                                XposedBridge.log("Cookie cleared")
+                                AndroidAppHelper.currentApplication()
+                                    .getSharedPreferences(prefFile, Context.MODE_PRIVATE)
+                                    .edit {
+                                        remove(prefKey)
+                                    }
+                                Logger.i(TAG, "Cookie cleared")
                             } catch (e: Exception) {
-                                XposedBridge.log(e)
+                                Logger.w(TAG, e)
                             }
                         }
                     }
                 )
             }
         } catch (e: Exception) {
-            XposedBridge.log(e)
+            Logger.w(TAG, e)
         }
     }
 }
