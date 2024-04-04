@@ -1,9 +1,8 @@
 package space.aioilight.tsubonofuta.hook
 
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import space.aioilight.tsubonofuta.config.ConfigResolver
@@ -19,84 +18,44 @@ class NativeAdRemover : IHook {
         lpParam: XC_LoadPackage.LoadPackageParam
     ) {
         val mainConfig = config.mainConfig
-        if (!mainConfig.hideInlineAd && !mainConfig.hideThreadAd) {
+        if (!mainConfig.hideAd) {
             Logger.i(TAG, "NativeAdRemover disabled")
             return
         }
 
         val internalConfig = config.internalConfig
         val classLoader = lpParam.classLoader
-        val inlineAdClass = XposedHelpers.findClassIfExists(
-            internalConfig.inlineClass,
+        val adClass = XposedHelpers.findClassIfExists(
+            internalConfig.adClass,
             classLoader
         )
-        val headAdClass = XposedHelpers.findClassIfExists(
-            internalConfig.threadClass,
-            classLoader
-        )
-        val targetActivityClass = XposedHelpers.findClassIfExists(
-            internalConfig.adActivityClass,
-            classLoader
-        )
-        if (inlineAdClass == null && headAdClass == null) {
+        if (adClass == null) {
             Logger.i(TAG, "NativeAdRemover failed: Class not found")
             return
         }
 
         Logger.i(TAG, "NativeAdRemover starting")
         fun isTargetView(view: View): Boolean {
-            val cls = view::class.java
-            if (mainConfig.hideInlineAd && cls == inlineAdClass) {
-                return true
-            }
-            if (mainConfig.hideThreadAd && cls == headAdClass) {
-                if (targetActivityClass == null || view.context::class.java == targetActivityClass) {
-                    return true
-                }
-            }
-            return false
+            return view::class.java == adClass
         }
         try {
-            XposedHelpers.findAndHookMethod(
-                ViewGroup::class.java,
-                "onViewAdded",
-                View::class.java,
+            XposedBridge.hookAllMethods(
+                classLoader.loadClass("com.amazon.device.ads.DTBAdRequest"),
+                "loadAd",
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        try {
-                            val view = param.thisObject as ViewGroup
-                            if (!isTargetView(view))
-                                return
-                            view.removeAllViews()
-                            param.result = null
-                        } catch (e: Exception) {
-                            Logger.w(TAG, e)
-                        }
+                        param.result = null
                     }
                 }
             )
-
-            val methodSetMeasuredDimension = XposedHelpers.findMethodExact(
+            XposedBridge.hookAllMethods(
                 View::class.java,
-                "setMeasuredDimension",
-                Int::class.java,
-                Int::class.java
-            )
-            XposedHelpers.findAndHookMethod(
-                FrameLayout::class.java,
-                "onMeasure",
-                Int::class.java,
-                Int::class.java,
+                "onAttachedToWindow",
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        try {
-                            val view = param.thisObject as ViewGroup
-                            if (!isTargetView(view))
-                                return
-                            methodSetMeasuredDimension.invoke(view, 0, 0)
-                            param.result = null
-                        } catch (e: Exception) {
-                            Logger.w(TAG, e)
+                        val view = param.thisObject as View
+                        if (isTargetView(view)) {
+                            view.layoutParams.height = 0
                         }
                     }
                 }

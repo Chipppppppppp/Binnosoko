@@ -5,19 +5,9 @@
     <PreferenceCategory app:title="@string/settings_ad_header">
 
         <SwitchPreferenceCompat
-            app:key="hideThreadAd"
-            app:summary="@string/settings_thread_desc"
-            app:title="@string/settings_thread_title" />
-
-        <SwitchPreferenceCompat
-            app:key="hideInlineAd"
-            app:summary="@string/settings_inline_desc"
-            app:title="@string/settings_inline_title" />
-
-        <SwitchPreferenceCompat
-            app:key="hideLogAd"
-            app:summary="@string/settings_past_log_desc"
-            app:title="@string/settings_past_log_title" />
+            app:key="hideAd"
+            app:summary="@string/settings_remove_ads_desc"
+            app:title="@string/settings_remove_ads_title" />
 
     </PreferenceCategory>
 

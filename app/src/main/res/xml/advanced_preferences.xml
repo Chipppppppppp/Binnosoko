@@ -8,49 +8,7 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             app:key="threadClass"
-            app:title="@string/settings_class_thread_ad_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="inlineClass"
-            app:title="@string/settings_class_inline_ad_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="videoManagerClass"
-            app:title="@string/settings_class_video_manager_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="videoRequestClass"
-            app:title="@string/settings_class_video_request_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="videoOpenMethod"
-            app:title="@string/settings_method_video_open_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="videoCompleteMethod"
-            app:title="@string/settings_method_video_complete_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <EditTextPreference
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:key="adActivityClass"
-            app:title="@string/settings_class_noad_target_title"
+            app:title="@string/settings_class_ad_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

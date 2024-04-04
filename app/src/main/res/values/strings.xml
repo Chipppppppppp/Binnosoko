@@ -1,14 +1,10 @@
 <resources>
-    <string name="app_name">Tsubonofuta (Modify)</string>
-    <string name="repository_url" translatable="false">https://github.com/nonnonstop/Tsubonofuta</string>
-    <string name="title_activity_settings" translatable="false">Tsubonofuta (Modify)</string>
+    <string name="app_name">Binnosoko</string>
+    <string name="repository_url" translatable="false">https://github.com/Chipppppppppp/Binnosoko</string>
+    <string name="title_activity_settings" translatable="false">Binnosoko</string>
     <string name="settings_ad_header">Advertisement</string>
-    <string name="settings_thread_title">Remove ads in thread</string>
-    <string name="settings_thread_desc">Removes ads in thread viewer. It does not apply to the home screen (Purchase ChMate+ if you want).</string>
-    <string name="settings_inline_title">Remove inline ads</string>
-    <string name="settings_inline_desc">Removes inline ads added since ChMate 0.8.10.150.</string>
-    <string name="settings_past_log_title">Remove past log ads</string>
-    <string name="settings_past_log_desc">Removes ads at loading past log.</string>
+    <string name="settings_remove_ads_title">Remove ads</string>
+    <string name="settings_remove_ads_desc">Removes all ads.</string>
     <string name="settings_client_header">Client</string>
     <string name="settings_replace_ua_title">Enable replacing User-Agent</string>
     <string name="settings_replace_ua_desc">Modify User-Agent of ChMate client.</string>
@@ -16,19 +12,13 @@
     <string name="settings_remove_api_id_title">Make MonaKey removable</string>
     <string name="settings_remove_api_id_desc">When removing your cookie, also removes MonaKey (a post key).</string>
     <string name="settings_advanced_header">Advanced setting</string>
-    <string name="settings_class_inline_ad_title">InlineAdContainer class</string>
-    <string name="settings_class_thread_ad_title">MyAdView class</string>
-    <string name="settings_class_video_manager_title">VAMPManager class</string>
-    <string name="settings_class_video_request_title">VAMPRequest class</string>
-    <string name="settings_method_video_open_title">VAMPManager.*.onOpened method</string>
-    <string name="settings_method_video_complete_title">VAMPManager.*.onCompleted method</string>
-    <string name="settings_class_noad_target_title">Target activity</string>
+    <string name="settings_class_ad_title">Ad class</string>
     <string name="settings_class_cookie_title">SharedPrefsCookiePersistor class</string>
     <string name="settings_pref_api_name_title">2chapi preference file</string>
     <string name="settings_pref_api_id_key_title">2chapi_monakey preference key</string>
     <string name="settings_about_header">About</string>
-    <string name="settings_github_title" translatable="false">nonnonstop/GitHub</string>
+    <string name="settings_github_title" translatable="false">Chipppppppppp/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
-    <string name="settings_status_title">%1$s version %2$s</string>
+    <string name="settings_status_title">%1$s</string>
     <string name="settings_status_desc">Tap to view licenses.</string>
 </resources>

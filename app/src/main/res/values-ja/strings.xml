@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tsubonofuta (Modify)</string>
+    <string name="app_name">Binnnosoko</string>
     <string name="settings_ad_header">広告</string>
-    <string name="settings_thread_title">スレッド内広告を削除</string>
-    <string name="settings_thread_desc">スレッド内広告を削除します。ホーム画面には適用されません (必要な場合は ChMate+ を購入してください)。</string>
-    <string name="settings_inline_title">インライン広告を削除</string>
-    <string name="settings_inline_desc">ChMate 0.8.10.150 以降に追加されたインライン広告を削除します。</string>
-    <string name="settings_past_log_title">過去ログ取得時の広告を削除</string>
-    <string name="settings_past_log_desc">過去ログを取得する際の動画広告を削除します。</string>
+    <string name="settings_remove_ads_title">広告を削除</string>
+    <string name="settings_remove_ads_desc">すべての広告を削除します。</string>
     <string name="settings_client_header">クライアント</string>
     <string name="settings_replace_ua_title">User-Agentの変更</string>
     <string name="settings_replace_ua_desc">ChMateのUser-Agentを変更します。</string>
@@ -15,18 +11,12 @@
     <string name="settings_remove_api_id_title">MonaKeyを削除</string>
     <string name="settings_remove_api_id_desc">クッキーを削除する際にMonaKey（投稿キー）も削除します。</string>
     <string name="settings_advanced_header">高度な設定</string>
-    <string name="settings_class_inline_ad_title">InlineAdContainerクラス</string>
-    <string name="settings_class_thread_ad_title">MyAdViewクラス</string>
-    <string name="settings_class_video_manager_title">VAMPManagerクラス</string>
-    <string name="settings_class_video_request_title">VAMPRequestクラス</string>
-    <string name="settings_method_video_open_title">VAMPManager.*.onOpenedメソッド</string>
-    <string name="settings_method_video_complete_title">VAMPManager.*.onCompletedメソッド</string>
-    <string name="settings_class_noad_target_title">対象Activity</string>
+    <string name="settings_class_ad_title">広告クラス</string>
     <string name="settings_class_cookie_title">SharedPrefsCookiePersistorクラス</string>
     <string name="settings_pref_api_name_title">2chapi設定ファイル</string>
     <string name="settings_pref_api_id_key_title">2chapi_monakey設定キー</string>
     <string name="settings_about_header">アプリについて</string>
     <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
-    <string name="settings_status_title">%1$s バージョン %2$s</string>
+    <string name="settings_status_title">%1$s</string>
     <string name="settings_status_desc">タップしてライセンスを閲覧する。</string>
 </resources>

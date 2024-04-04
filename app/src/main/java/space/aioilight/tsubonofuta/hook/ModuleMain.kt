@@ -53,7 +53,6 @@ class ModuleMain : IXposedHookLoadPackage {
         val config = ConfigResolver(context)
         arrayOf(
             NativeAdRemover(),
-            VideoAdRemover(),
             UserAgentReplacer(),
             MonaKeyRemover(),
         ).forEach { hook ->
