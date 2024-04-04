@@ -17,6 +17,6 @@
     <string name="settings_pref_api_id_key_title">2chapi_monakey設定キー</string>
     <string name="settings_about_header">アプリについて</string>
     <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
-    <string name="settings_status_title">%1$s</string>
+    <string name="settings_status_title">%1$s バージョン %2$s</string>
     <string name="settings_status_desc">タップしてライセンスを閲覧する。</string>
 </resources>

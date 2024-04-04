@@ -31,7 +31,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="F*ck inline ads of ChMate" />
+            android:value="F*ck ads of ChMate" />
         <meta-data
             android:name="xposedminversion"
             android:value="82" />

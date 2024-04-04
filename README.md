@@ -1,12 +1,10 @@
-# Tsubonofuta (Modify)
+# Binnnosoko
 
 F*ck ChMate's ads
 
 ## Features
 
-* Remove top ads
-* Remove inline ads
-* Remove video ads
+* Remove ads
 * Modify User-Agent
 * Remove MonaKey
 

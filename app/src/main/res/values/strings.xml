@@ -19,6 +19,6 @@
     <string name="settings_about_header">About</string>
     <string name="settings_github_title" translatable="false">Chipppppppppp/GitHub</string>
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
-    <string name="settings_status_title">%1$s</string>
+    <string name="settings_status_title">%1$s version %2$s</string>
     <string name="settings_status_desc">Tap to view licenses.</string>
 </resources>
