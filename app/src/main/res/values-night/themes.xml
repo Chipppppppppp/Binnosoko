@@ -1,6 +1,0 @@
-<resources>
-
-    <style name="Theme.Tsubonofuta" parent="@style/Theme.AppCompat.DayNight" />
-
-    <style name="Theme.Tsubonofuta.NoActionBar" parent="@style/Theme.AppCompat.DayNight.NoActionBar" />
-</resources>

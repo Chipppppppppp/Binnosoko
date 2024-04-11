@@ -1,4 +1,4 @@
-# Binnnosoko
+# Binnosoko
 
 F*ck ChMate's ads
 

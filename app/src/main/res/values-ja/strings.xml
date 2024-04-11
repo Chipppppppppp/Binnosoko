@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Binnnosoko</string>
     <string name="settings_ad_header">広告</string>
     <string name="settings_remove_ads_title">広告を削除</string>
     <string name="settings_remove_ads_desc">すべての広告を削除します。</string>
     <string name="settings_client_header">クライアント</string>
     <string name="settings_replace_ua_title">User-Agentの変更</string>
     <string name="settings_replace_ua_desc">ChMateのUser-Agentを変更します。</string>
-    <string name="settings_ua_title">User-Agent</string>
     <string name="settings_remove_api_id_title">MonaKeyを削除</string>
     <string name="settings_remove_api_id_desc">クッキーを削除する際にMonaKey（投稿キー）も削除します。</string>
     <string name="settings_advanced_header">高度な設定</string>
