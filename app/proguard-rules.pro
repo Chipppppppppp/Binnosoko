@@ -1,2 +1,2 @@
 -keepnames class ** { *; }
--keep class space.aioilight.tsubonofuta.**
+-keep class io.github.chipppppppppp.binnosoko.**
