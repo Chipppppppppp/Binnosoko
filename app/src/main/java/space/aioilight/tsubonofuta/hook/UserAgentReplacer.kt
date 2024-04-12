@@ -3,7 +3,7 @@ package space.aioilight.tsubonofuta.hook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.config.Config
 import space.aioilight.tsubonofuta.util.Logger
 
 class UserAgentReplacer : IHook {
@@ -12,18 +12,17 @@ class UserAgentReplacer : IHook {
     }
 
     override fun register(
-        config: ConfigResolver,
+        config: Config,
         lpParam: XC_LoadPackage.LoadPackageParam
     ) {
         try {
-            val mainConfig = config.mainConfig
-            if (!mainConfig.replaceUserAgent) {
+            if (!config.replaceUserAgent) {
                 Logger.i(TAG, "UserAgentReplacer disabled")
                 return
             }
 
             Logger.i(TAG, "UserAgentReplacer starting")
-            val userAgent = mainConfig.userAgent
+            val userAgent = config.userAgent
             XposedHelpers.findAndHookMethod(
                 System::class.java,
                 "getProperty",

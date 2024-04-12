@@ -7,7 +7,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.config.Config
 import space.aioilight.tsubonofuta.util.Logger
 
 class MonaKeyRemover : IHook {
@@ -16,20 +16,18 @@ class MonaKeyRemover : IHook {
     }
 
     override fun register(
-        config: ConfigResolver,
+        config: Config,
         lpParam: XC_LoadPackage.LoadPackageParam
     ) {
         try {
-            val mainConfig = config.mainConfig
-            if (!mainConfig.removeMonaKey) {
+            if (!config.removeMonaKey) {
                 Logger.i(TAG, "MonaKeyRemover disabled")
                 return
             }
 
-            val internalConfig = config.internalConfig
             val classLoader = lpParam.classLoader
             val cookieClass = XposedHelpers.findClassIfExists(
-                internalConfig.cookieClass,
+                config.cookieClass,
                 classLoader
             )
             if (cookieClass == null) {
@@ -38,8 +36,8 @@ class MonaKeyRemover : IHook {
             }
 
             Logger.i(TAG, "MonaKeyRemover starting")
-            val prefFile = internalConfig.prefMonaKeyFile
-            val prefKey = internalConfig.prefMonaKeyName
+            val prefFile = config.prefMonaKeyFile
+            val prefKey = config.prefMonaKeyName
             XposedHelpers.findMethodsByExactParameters(
                 cookieClass,
                 Void.TYPE,

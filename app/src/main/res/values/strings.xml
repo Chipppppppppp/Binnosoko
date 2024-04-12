@@ -21,4 +21,6 @@
     <string name="settings_github_desc">Tap to open GitHub repository.</string>
     <string name="settings_status_title">%1$s version %2$s</string>
     <string name="settings_status_desc">Tap to view licenses.</string>
+    <string name="positive">OK</string>
+    <string name="restarting">Restarting now...</string>
 </resources>

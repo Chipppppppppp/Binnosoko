@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Binnnosoko</string>
+    <string name="app_name">Binnosoko</string>
     <string name="settings_ad_header">広告</string>
     <string name="settings_remove_ads_title">広告を削除</string>
     <string name="settings_remove_ads_desc">すべての広告を削除します。</string>
@@ -19,4 +19,6 @@
     <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
     <string name="settings_status_title">%1$s バージョン %2$s</string>
     <string name="settings_status_desc">タップしてライセンスを閲覧する。</string>
+    <string name="positive">OK</string>
+    <string name="restarting">アプリを再起動しています...</string>
 </resources>

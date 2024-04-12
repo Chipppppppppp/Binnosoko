@@ -5,7 +5,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import space.aioilight.tsubonofuta.config.ConfigResolver
+import space.aioilight.tsubonofuta.config.Config
 import space.aioilight.tsubonofuta.util.Logger
 
 class NativeAdRemover : IHook {
@@ -14,19 +14,17 @@ class NativeAdRemover : IHook {
     }
 
     override fun register(
-        config: ConfigResolver,
+        config: Config,
         lpParam: XC_LoadPackage.LoadPackageParam
     ) {
-        val mainConfig = config.mainConfig
-        if (!mainConfig.hideAd) {
+        if (!config.hideAd) {
             Logger.i(TAG, "NativeAdRemover disabled")
             return
         }
 
-        val internalConfig = config.internalConfig
         val classLoader = lpParam.classLoader
         val adClass = XposedHelpers.findClassIfExists(
-            internalConfig.adClass,
+            config.adClass,
             classLoader
         )
         if (adClass == null) {
