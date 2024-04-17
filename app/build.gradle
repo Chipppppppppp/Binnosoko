@@ -53,6 +53,10 @@ android {
         buildConfig = true
     }
 
+    aaptOptions {
+        aaptOptions.additionalParameters '--allow-reserved-package-id', '--package-id', '0x64'
+    }
+    
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -70,10 +74,4 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-properties:1.6.3'
 
     compileOnly 'de.robv.android.xposed:api:82'
-}
-
-android {
-    aaptOptions {
-        aaptOptions.additionalParameters '--allow-reserved-package-id', '--package-id', '0x64'
-    }
 }
