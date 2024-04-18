@@ -23,3 +23,6 @@ F*ck ChMate's ads
 
 Original Tsubonofuta is developed by AioiLight. \
 https://github.com/AioiLight/Tsubonofuta
+
+Forked from Tsubonofuta (Modify), developed by nonnonstop. \
+https://github.com/nonnonstop/Tsubonofuta
