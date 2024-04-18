@@ -4,7 +4,7 @@ F*ck ChMate's ads
 
 ## Features
 
-* Remove ads
+* Remove ads (including margins)
 * Modify User-Agent
 * Remove MonaKey
 
