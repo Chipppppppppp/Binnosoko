@@ -12,7 +12,7 @@
     <string name="settings_remove_api_id_title">Make MonaKey removable</string>
     <string name="settings_remove_api_id_desc">When removing your cookie, also removes MonaKey (a post key).</string>
     <string name="settings_advanced_header">Advanced setting</string>
-    <string name="settings_class_ad_title">Ad class</string>
+    <string name="settings_ad_height_title">Ad height</string>
     <string name="settings_class_cookie_title">SharedPrefsCookiePersistor class</string>
     <string name="settings_pref_api_name_title">2chapi preference file</string>
     <string name="settings_pref_api_id_key_title">2chapi_monakey preference key</string>

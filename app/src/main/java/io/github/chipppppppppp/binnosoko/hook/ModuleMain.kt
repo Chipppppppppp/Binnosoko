@@ -36,7 +36,7 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
 
         config = Config(
             hideAd = xPrefs.getBoolean("hideAd", config.hideAd),
-            adClass = xPrefs.getString("adClass", config.adClass) ?: config.adClass,
+            adHeight = xPrefs.getInt("adHeight", config.adHeight),
             replaceUserAgent = xPrefs.getBoolean("replaceUserAgent", config.replaceUserAgent),
             userAgent = xPrefs.getString("userAgent", config.userAgent) ?: config.userAgent,
             removeMonaKey = xPrefs.getBoolean("removeMonaKey", config.removeMonaKey),
