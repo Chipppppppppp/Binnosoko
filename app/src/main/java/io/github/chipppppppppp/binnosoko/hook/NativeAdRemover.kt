@@ -14,21 +14,10 @@ import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.chipppppppppp.binnosoko.R
 import io.github.chipppppppppp.binnosoko.config.Config
-import io.github.chipppppppppp.binnosoko.util.Logger
 
 class NativeAdRemover : IHook {
-    companion object {
-        private const val TAG = "Futa-NativeAdRemover"
-    }
-
-    override fun register(
-        config: Config,
-        lpParam: XC_LoadPackage.LoadPackageParam
-    ) {
-        if (!config.hideAd) {
-            Logger.i(TAG, "NativeAdRemover disabled")
-            return
-        }
+    override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!config.hideAd) return
 
         val xPrefs = XSharedPreferences(
             ModuleMain.PACKAGE_NAME,
@@ -41,75 +30,70 @@ class NativeAdRemover : IHook {
             classLoader
         )
 
-        Logger.i(TAG, "NativeAdRemover starting")
-        try {
-            XposedBridge.hookAllMethods(
-                classLoader.loadClass("com.amazon.device.ads.DTBAdRequest"),
-                "loadAd",
-                object : XC_MethodHook() {
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        param.result = null
+        XposedBridge.hookAllMethods(
+            classLoader.loadClass("com.amazon.device.ads.DTBAdRequest"),
+            "loadAd",
+            object : XC_MethodHook() {
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    param.result = null
+                }
+            }
+        )
+        XposedBridge.hookAllMethods(
+            View::class.java,
+            "onAttachedToWindow",
+            object : XC_MethodHook() {
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    var view = param.thisObject as View
+                    if (view::class.java == adClass) {
+                        view.layoutParams.height = 0
                     }
                 }
-            )
-            XposedBridge.hookAllMethods(
-                View::class.java,
-                "onAttachedToWindow",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        var view = param.thisObject as View
-                        if (view::class.java == adClass) {
-                            view.layoutParams.height = 0
-                        }
-                    }
-                }
-            )
-            var flag = false
-            XposedBridge.hookAllMethods(
-                View::class.java,
-                "onSizeChanged",
-                object : XC_MethodHook() {
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        if (flag) return
-                        val view = param.thisObject as View
-                        if (param.args[1] == 53 && view is FrameLayout) {
-                            flag = true
-                            if (view == adClass) return
+            }
+        )
+        var flag = false
+        XposedBridge.hookAllMethods(
+            View::class.java,
+            "onSizeChanged",
+            object : XC_MethodHook() {
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    if (flag) return
+                    val view = param.thisObject as View
+                    if (param.args[1] == 53 && view is FrameLayout) {
+                        flag = true
+                        if (view == adClass) return
 
-                            val context = view.context
+                        val context = view.context
 
-                            val mAddAddAssertPath =
-                                AssetManager::class.java.getDeclaredMethod(
-                                    "addAssetPath",
-                                    String::class.java
-                                )
-                            mAddAddAssertPath.isAccessible = true
-                            mAddAddAssertPath.invoke(context.resources.assets, ModuleMain.MODULE_PATH)
-
-                            val prefs = context.getSharedPreferences(
-                                "${ModuleMain.MODULE_NAME}-config",
-                                Context.MODE_PRIVATE
+                        val mAddAddAssertPath =
+                            AssetManager::class.java.getDeclaredMethod(
+                                "addAssetPath",
+                                String::class.java
                             )
+                        mAddAddAssertPath.isAccessible = true
+                        mAddAddAssertPath.invoke(context.resources.assets, ModuleMain.MODULE_PATH)
 
-                            prefs.edit().putString("adClass", view.javaClass.name).commit()
-                            Toast.makeText(
-                                context.applicationContext,
-                                context.getString(R.string.restarting),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            Process.killProcess(Process.myPid())
-                            context.startActivity(
-                                Intent().setClassName(
-                                    ModuleMain.MODULE_NAME,
-                                    "jp.syoboi.a2chMate.activity.HomeActivity"
-                                )
+                        val prefs = context.getSharedPreferences(
+                            "${ModuleMain.MODULE_NAME}-config",
+                            Context.MODE_PRIVATE
+                        )
+
+                        prefs.edit().putString("adClass", view.javaClass.name).commit()
+                        Toast.makeText(
+                            context.applicationContext,
+                            context.getString(R.string.restarting),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Process.killProcess(Process.myPid())
+                        context.startActivity(
+                            Intent().setClassName(
+                                ModuleMain.MODULE_NAME,
+                                "jp.syoboi.a2chMate.activity.HomeActivity"
                             )
-                        }
+                        )
                     }
                 }
-            )
-        } catch (e: Exception) {
-            Logger.w(TAG, e)
-        }
+            }
+        )
     }
 }

@@ -31,10 +31,7 @@ class AddSettings : IHook {
         return Math.round(dp.toFloat() * density)
     }
 
-    override fun register(
-        config: Config,
-        lpParam: XC_LoadPackage.LoadPackageParam
-    ) {
+    override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
         XposedBridge.hookAllMethods(
             lpParam.classLoader.loadClass("jp.syoboi.a2chMate.activity.SettingActivity"),
             "onResume",

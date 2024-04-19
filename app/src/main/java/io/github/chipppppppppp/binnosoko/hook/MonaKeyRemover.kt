@@ -8,60 +8,36 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.chipppppppppp.binnosoko.config.Config
-import io.github.chipppppppppp.binnosoko.util.Logger
 
 class MonaKeyRemover : IHook {
-    companion object {
-        private const val TAG = "Futa-MonaKeyRemover"
-    }
+    override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
+        if (!config.removeMonaKey) return
 
-    override fun register(
-        config: Config,
-        lpParam: XC_LoadPackage.LoadPackageParam
-    ) {
-        try {
-            if (!config.removeMonaKey) {
-                Logger.i(TAG, "MonaKeyRemover disabled")
-                return
-            }
+        val classLoader = lpParam.classLoader
+        val cookieClass = XposedHelpers.findClassIfExists(
+            config.cookieClass,
+            classLoader
+        )
+        if (cookieClass == null) return
 
-            val classLoader = lpParam.classLoader
-            val cookieClass = XposedHelpers.findClassIfExists(
-                config.cookieClass,
-                classLoader
-            )
-            if (cookieClass == null) {
-                Logger.i(TAG, "MonaKeyRemover failed: Class not found")
-                return
-            }
-
-            Logger.i(TAG, "MonaKeyRemover starting")
-            val prefFile = config.prefMonaKeyFile
-            val prefKey = config.prefMonaKeyName
-            XposedHelpers.findMethodsByExactParameters(
-                cookieClass,
-                Void.TYPE,
-            ).forEach {
-                XposedBridge.hookMethod(
-                    it,
-                    object : XC_MethodHook() {
-                        override fun afterHookedMethod(param: MethodHookParam?) {
-                            try {
-                                AndroidAppHelper.currentApplication()
-                                    .getSharedPreferences(prefFile, Context.MODE_PRIVATE)
-                                    .edit {
-                                        remove(prefKey)
-                                    }
-                                Logger.i(TAG, "Cookie cleared")
-                            } catch (e: Exception) {
-                                Logger.w(TAG, e)
+        val prefFile = config.prefMonaKeyFile
+        val prefKey = config.prefMonaKeyName
+        XposedHelpers.findMethodsByExactParameters(
+            cookieClass,
+            Void.TYPE,
+        ).forEach {
+            XposedBridge.hookMethod(
+                it,
+                object : XC_MethodHook() {
+                    override fun afterHookedMethod(param: MethodHookParam?) {
+                        AndroidAppHelper.currentApplication()
+                            .getSharedPreferences(prefFile, Context.MODE_PRIVATE)
+                            .edit {
+                                remove(prefKey)
                             }
-                        }
                     }
-                )
-            }
-        } catch (e: Exception) {
-            Logger.w(TAG, e)
+                }
+            )
         }
     }
 }
