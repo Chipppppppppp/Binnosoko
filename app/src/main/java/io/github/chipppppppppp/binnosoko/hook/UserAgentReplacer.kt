@@ -16,8 +16,7 @@ class UserAgentReplacer : IHook {
             String::class.java,
             object : XC_MethodHook() {
                 override fun beforeHookedMethod(param: MethodHookParam) {
-                    if (param.args[0] as String != "http.agent")
-                        return
+                    if (param.args[0] as String != "http.agent") return
                     param.result = userAgent
                 }
             }

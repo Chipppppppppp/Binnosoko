@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -56,7 +55,7 @@ android {
     aaptOptions {
         aaptOptions.additionalParameters '--allow-reserved-package-id', '--package-id', '0x64'
     }
-    
+
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -66,12 +65,5 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1'
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.23"
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-properties:1.6.3'
-
     compileOnly 'de.robv.android.xposed:api:82'
 }
