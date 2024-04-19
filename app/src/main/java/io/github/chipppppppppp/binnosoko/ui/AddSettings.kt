@@ -25,7 +25,6 @@ import io.github.chipppppppppp.binnosoko.config.Config
 import io.github.chipppppppppp.binnosoko.hook.IHook
 import io.github.chipppppppppp.binnosoko.hook.ModuleMain
 
-
 class AddSettings : IHook {
     private fun dpToPx(dp: Int, context: Context): Int {
         val density = context.resources.displayMetrics.density

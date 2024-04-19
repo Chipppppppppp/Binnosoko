@@ -5,11 +5,8 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Process
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.view.children
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
