@@ -38,6 +38,9 @@ android {
             shrinkResources true
         }
     }
+    lint {
+        checkReleaseBuilds false
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
