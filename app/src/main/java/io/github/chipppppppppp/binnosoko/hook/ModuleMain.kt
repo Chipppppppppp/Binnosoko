@@ -11,7 +11,7 @@ import io.github.chipppppppppp.binnosoko.ui.AddSettings
 class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
     companion object {
         const val PACKAGE_NAME = "jp.co.airfront.android.a2chMate"
-        const val MODULE_NAME = "space.aioilight.tsubonofuta"
+        const val MODULE_NAME = "io.github.chipppppppppp.binnosoko"
         lateinit var MODULE_PATH: String
     }
 
