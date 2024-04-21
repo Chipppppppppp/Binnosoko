@@ -9,8 +9,7 @@ android {
 
     defaultConfig {
         minSdk 23
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk 32
+        targetSdk 34
         versionCode 17
         versionName "2.2"
         proguardFiles += 'proguard-rules.pro'

@@ -1,9 +1,9 @@
 package io.github.chipppppppppp.binnosoko.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Process
@@ -36,6 +36,7 @@ class AddSettings : IHook {
             lpParam.classLoader.loadClass("jp.syoboi.a2chMate.activity.SettingActivity"),
             "onResume",
             object : XC_MethodHook() {
+                @SuppressLint("DiscouragedPrivateApi")
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val activity = param.thisObject as Activity
 
@@ -167,43 +168,43 @@ class AddSettings : IHook {
                     builder.setView(scrollView)
 
                     builder.setPositiveButton(
-                        R.string.positive,
-                        DialogInterface.OnClickListener { dialog, which ->
-                            val configCopy = Config(
-                                hideAd = hideAdSwitch.isChecked,
-                                adHeight = adHeightEditText.text.toString().toInt(),
-                                replaceUserAgent = replaceUserAgentSwitch.isChecked,
-                                userAgent = userAgentEditText.text.toString(),
-                                removeMonaKey = removeMonaKeySwitch.isChecked,
-                                cookieClass = cookieClassEditText.text.toString(),
-                                prefMonaKeyFile = prefMonaKeyFileEditText.text.toString(),
-                                prefMonaKeyName = prefMonaKeyNameEditText.text.toString()
-                            )
-                            prefs.edit()
-                                .putBoolean("hideAd", hideAdSwitch.isChecked)
-                                .putInt("adHeight", adHeightEditText.text.toString().toInt())
-                                .putBoolean("replaceUserAgent", replaceUserAgentSwitch.isChecked)
-                                .putString("userAgent", userAgentEditText.text.toString())
-                                .putBoolean("removeMonaKey", removeMonaKeySwitch.isChecked)
-                                .putString("cookieClass", cookieClassEditText.text.toString())
-                                .putString("prefMonaKeyFile", prefMonaKeyFileEditText.text.toString())
-                                .putString("prefMonaKeyName", prefMonaKeyNameEditText.text.toString())
-                                .commit()
-                            if (config != configCopy) {
-                                Toast.makeText(
-                                    activity.applicationContext,
-                                    activity.getString(R.string.restarting),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Process.killProcess(Process.myPid())
-                                activity.startActivity(
-                                    Intent().setClassName(
-                                        ModuleMain.MODULE_NAME,
-                                        "jp.syoboi.a2chMate.activity.HomeActivity"
-                                    )
+                        R.string.positive
+                    ) { _, _ ->
+                        val configCopy = Config(
+                            hideAd = hideAdSwitch.isChecked,
+                            adHeight = adHeightEditText.text.toString().toInt(),
+                            replaceUserAgent = replaceUserAgentSwitch.isChecked,
+                            userAgent = userAgentEditText.text.toString(),
+                            removeMonaKey = removeMonaKeySwitch.isChecked,
+                            cookieClass = cookieClassEditText.text.toString(),
+                            prefMonaKeyFile = prefMonaKeyFileEditText.text.toString(),
+                            prefMonaKeyName = prefMonaKeyNameEditText.text.toString()
+                        )
+                        prefs.edit()
+                            .putBoolean("hideAd", hideAdSwitch.isChecked)
+                            .putInt("adHeight", adHeightEditText.text.toString().toInt())
+                            .putBoolean("replaceUserAgent", replaceUserAgentSwitch.isChecked)
+                            .putString("userAgent", userAgentEditText.text.toString())
+                            .putBoolean("removeMonaKey", removeMonaKeySwitch.isChecked)
+                            .putString("cookieClass", cookieClassEditText.text.toString())
+                            .putString("prefMonaKeyFile", prefMonaKeyFileEditText.text.toString())
+                            .putString("prefMonaKeyName", prefMonaKeyNameEditText.text.toString())
+                            .apply()
+                        if (config != configCopy) {
+                            Toast.makeText(
+                                activity.applicationContext,
+                                activity.getString(R.string.restarting),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Process.killProcess(Process.myPid())
+                            activity.startActivity(
+                                Intent().setClassName(
+                                    ModuleMain.MODULE_NAME,
+                                    "jp.syoboi.a2chMate.activity.HomeActivity"
                                 )
-                            }
-                        })
+                            )
+                        }
+                    }
 
                     val dialog = builder.create()
 
