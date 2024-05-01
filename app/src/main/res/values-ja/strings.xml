@@ -9,7 +9,7 @@
     <string name="settings_remove_api_id_title">MonaKeyを削除</string>
     <string name="settings_remove_api_id_desc">クッキーを削除する際にMonaKey（投稿キー）も削除します。</string>
     <string name="settings_advanced_header">高度な設定</string>
-    <string name="settings_ad_height_title">広告の高さ</string>
+    <string name="settings_ad_height_title">広告の高さ (広告の自動判定に使用します)</string>
     <string name="settings_class_cookie_title">SharedPrefsCookiePersistorクラス</string>
     <string name="settings_pref_api_name_title">2chapi設定ファイル</string>
     <string name="settings_pref_api_id_key_title">2chapi_monakey設定キー</string>
