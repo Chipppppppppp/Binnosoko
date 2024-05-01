@@ -11,8 +11,8 @@ android {
         minSdk 23
         //noinspection ExpiredTargetSdkVersion
         targetSdk 32
-        versionCode 17
-        versionName "2.2"
+        versionCode 18
+        versionName "2.2-stable"
         proguardFiles += 'proguard-rules.pro'
         vectorDrawables {
             useSupportLibrary true
