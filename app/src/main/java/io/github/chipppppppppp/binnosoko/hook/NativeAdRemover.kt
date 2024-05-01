@@ -80,7 +80,7 @@ class NativeAdRemover : IHook {
                             Context.MODE_PRIVATE
                         )
 
-                        prefs.edit().putString("adClass", view.javaClass.name).apply()
+                        prefs.edit().putString("adClass", view.javaClass.name).commit()
                         Toast.makeText(
                             context.applicationContext,
                             context.getString(R.string.restarting),

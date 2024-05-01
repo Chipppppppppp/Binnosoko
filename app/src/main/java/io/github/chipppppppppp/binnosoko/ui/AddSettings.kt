@@ -189,7 +189,7 @@ class AddSettings : IHook {
                             .putString("cookieClass", cookieClassEditText.text.toString())
                             .putString("prefMonaKeyFile", prefMonaKeyFileEditText.text.toString())
                             .putString("prefMonaKeyName", prefMonaKeyNameEditText.text.toString())
-                            .apply()
+                            .commit()
                         if (config != configCopy) {
                             Toast.makeText(
                                 activity.applicationContext,
