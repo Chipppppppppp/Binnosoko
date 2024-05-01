@@ -1,5 +1,6 @@
 package io.github.chipppppppppp.binnosoko.hook
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -44,7 +45,7 @@ class NativeAdRemover : IHook {
             "onAttachedToWindow",
             object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
-                    var view = param.thisObject as View
+                    val view = param.thisObject as View
                     if (view::class.java == adClass) {
                         view.layoutParams.height = 0
                     }
@@ -56,6 +57,7 @@ class NativeAdRemover : IHook {
             View::class.java,
             "onSizeChanged",
             object : XC_MethodHook() {
+                @SuppressLint("DiscouragedPrivateApi")
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     if (flag) return
                     val view = param.thisObject as View
@@ -78,7 +80,7 @@ class NativeAdRemover : IHook {
                             Context.MODE_PRIVATE
                         )
 
-                        prefs.edit().putString("adClass", view.javaClass.name).commit()
+                        prefs.edit().putString("adClass", view.javaClass.name).apply()
                         Toast.makeText(
                             context.applicationContext,
                             context.getString(R.string.restarting),

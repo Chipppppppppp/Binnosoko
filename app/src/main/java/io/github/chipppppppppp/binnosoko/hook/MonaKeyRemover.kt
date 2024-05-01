@@ -2,7 +2,6 @@ package io.github.chipppppppppp.binnosoko.hook
 
 import android.app.AndroidAppHelper
 import android.content.Context
-import androidx.core.content.edit
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -17,8 +16,7 @@ class MonaKeyRemover : IHook {
         val cookieClass = XposedHelpers.findClassIfExists(
             config.cookieClass,
             classLoader
-        )
-        if (cookieClass == null) return
+        ) ?: return
 
         val prefFile = config.prefMonaKeyFile
         val prefKey = config.prefMonaKeyName
@@ -32,9 +30,9 @@ class MonaKeyRemover : IHook {
                     override fun afterHookedMethod(param: MethodHookParam?) {
                         AndroidAppHelper.currentApplication()
                             .getSharedPreferences(prefFile, Context.MODE_PRIVATE)
-                            .edit {
-                                remove(prefKey)
-                            }
+                            .edit()
+                            .remove(prefKey)
+                            .apply()
                     }
                 }
             )
