@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Process
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -53,7 +54,7 @@ class AddSettings : IHook {
                         Context.MODE_PRIVATE
                     )
 
-                    val viewGroup = (activity.window.decorView as ViewGroup)
+                    val viewGroup = ((activity.window.decorView as ViewGroup).getChildAt(0) as ViewGroup).getChildAt(1) as ViewGroup
 
                     val frameLayout = FrameLayout(activity)
                     frameLayout.layoutParams = ViewGroup.LayoutParams(

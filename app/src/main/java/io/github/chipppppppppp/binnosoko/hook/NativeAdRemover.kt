@@ -1,6 +1,5 @@
 package io.github.chipppppppppp.binnosoko.hook
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
