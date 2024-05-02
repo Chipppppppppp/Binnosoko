@@ -13,7 +13,8 @@ F*ck ChMate's ads
 * Android 6.0 or later
 * Xposed-compatible framework installed
   * For rooted users : [LSPosed](https://github.com/LSPosed/LSPosed), [LSPosed_mod](https://github.com/mywalkb/LSPosed_mod)
-  * For non-rooted users : [LSPatch](https://github.com/LSPosed/LSPatch), [NPatch](https://github.com/HSSkyBoy/NPatch) (Portable patch mode)
+
+LSPatch and NPatch are not supported because ContentProvider crashes when changing the apk signature. Please make a pull request if you have a solution.
 
 ## Credit
 
