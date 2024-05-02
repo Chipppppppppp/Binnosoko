@@ -104,14 +104,13 @@ class AddSettings : IHook {
                     layout.addView(hideAdSwitch)
 
                     layout.addView(TextView(activity).apply {
-                        setText(R.string.settings_ad_height_title)
+                        setText(R.string.settings_class_ad_parent_title)
                         setLayoutParams(params)
                     })
-                    val adHeightEditText = EditText(activity).apply {
-                        inputType = android.text.InputType.TYPE_CLASS_NUMBER
-                        text.insert(0, config.adHeight.toString())
+                    val adParentClassEditText = EditText(activity).apply {
+                        text.insert(0, config.adParentClass)
                     }
-                    layout.addView(adHeightEditText)
+                    layout.addView(adParentClassEditText)
 
                     val replaceUserAgentSwitch = Switch(activity).apply {
                         setText(R.string.settings_replace_ua_title)
@@ -172,7 +171,7 @@ class AddSettings : IHook {
                     ) { _, _ ->
                         val configCopy = Config(
                             hideAd = hideAdSwitch.isChecked,
-                            adHeight = adHeightEditText.text.toString().toInt(),
+                            adParentClass = adParentClassEditText.text.toString(),
                             replaceUserAgent = replaceUserAgentSwitch.isChecked,
                             userAgent = userAgentEditText.text.toString(),
                             removeMonaKey = removeMonaKeySwitch.isChecked,
@@ -182,7 +181,7 @@ class AddSettings : IHook {
                         )
                         prefs.edit()
                             .putBoolean("hideAd", hideAdSwitch.isChecked)
-                            .putInt("adHeight", adHeightEditText.text.toString().toInt())
+                            .putString("adHeight", adParentClassEditText.text.toString())
                             .putBoolean("replaceUserAgent", replaceUserAgentSwitch.isChecked)
                             .putString("userAgent", userAgentEditText.text.toString())
                             .putBoolean("removeMonaKey", removeMonaKeySwitch.isChecked)

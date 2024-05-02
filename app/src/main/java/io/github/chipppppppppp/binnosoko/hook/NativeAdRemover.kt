@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Process
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import de.robv.android.xposed.XC_MethodHook
@@ -30,6 +31,10 @@ class NativeAdRemover : IHook {
             xPrefs.getString("adClass", ""),
             classLoader
         )
+        val adParentClass = XposedHelpers.findClassIfExists(
+            xPrefs.getString("adParentClass", "o.setPreserveFocusAfterLayout"),
+            classLoader
+        )
 
         XposedBridge.hookAllMethods(
             classLoader.loadClass("com.amazon.device.ads.DTBAdRequest"),
@@ -40,33 +45,23 @@ class NativeAdRemover : IHook {
                 }
             }
         )
+        var seen = false
         XposedBridge.hookAllMethods(
             View::class.java,
             "onAttachedToWindow",
             object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val view = param.thisObject as View
-                    if (view::class.java == adClass) {
-                        view.layoutParams.height = 0
-                    }
-                }
-            }
-        )
-        var flag = false
-        XposedBridge.hookAllMethods(
-            View::class.java,
-            "onSizeChanged",
-            object : XC_MethodHook() {
-                @SuppressLint("DiscouragedPrivateApi")
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    if (flag) return
-                    val view = param.thisObject as View
-                    if (param.args[1] == 53 && view is FrameLayout) {
-                        flag = true
-                        if (view == adClass) return
+                    if (view::class.java == adParentClass) {
+                        if (seen) return
+                        val adParent = view as ViewGroup
+                        if (adParent.childCount < 3) return
+                        val adView = adParent.getChildAt(adParent.childCount - 3)
+                        if (adView !is FrameLayout) return
+                        seen = true
+                        if (adView::class.java == adClass) return
 
                         val context = view.context
-
                         val mAddAddAssertPath =
                             AssetManager::class.java.getDeclaredMethod(
                                 "addAssetPath",
@@ -79,8 +74,8 @@ class NativeAdRemover : IHook {
                             "${ModuleMain.MODULE_NAME}-config",
                             Context.MODE_PRIVATE
                         )
+                        prefs.edit().putString("adClass", adView.javaClass.name).commit()
 
-                        prefs.edit().putString("adClass", view.javaClass.name).commit()
                         Toast.makeText(
                             context.applicationContext,
                             context.getString(R.string.restarting),
@@ -93,6 +88,8 @@ class NativeAdRemover : IHook {
                                 "jp.syoboi.a2chMate.activity.HomeActivity"
                             )
                         )
+                    } else if (view::class.java == adClass) {
+                        view.layoutParams.height = 0
                     }
                 }
             }
