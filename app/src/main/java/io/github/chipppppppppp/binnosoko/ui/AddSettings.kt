@@ -104,15 +104,6 @@ class AddSettings : IHook {
                     }
                     layout.addView(hideAdSwitch)
 
-                    layout.addView(TextView(activity).apply {
-                        setText(R.string.settings_class_ad_parent_title)
-                        setLayoutParams(params)
-                    })
-                    val adParentClassEditText = EditText(activity).apply {
-                        text.insert(0, config.adParentClass)
-                    }
-                    layout.addView(adParentClassEditText)
-
                     val replaceUserAgentSwitch = Switch(activity).apply {
                         setText(R.string.settings_replace_ua_title)
                         setLayoutParams(params)
@@ -172,7 +163,6 @@ class AddSettings : IHook {
                     ) { _, _ ->
                         val configCopy = Config(
                             hideAd = hideAdSwitch.isChecked,
-                            adParentClass = adParentClassEditText.text.toString(),
                             replaceUserAgent = replaceUserAgentSwitch.isChecked,
                             userAgent = userAgentEditText.text.toString(),
                             removeMonaKey = removeMonaKeySwitch.isChecked,
@@ -182,7 +172,6 @@ class AddSettings : IHook {
                         )
                         prefs.edit()
                             .putBoolean("hideAd", hideAdSwitch.isChecked)
-                            .putString("adHeight", adParentClassEditText.text.toString())
                             .putBoolean("replaceUserAgent", replaceUserAgentSwitch.isChecked)
                             .putString("userAgent", userAgentEditText.text.toString())
                             .putBoolean("removeMonaKey", removeMonaKeySwitch.isChecked)

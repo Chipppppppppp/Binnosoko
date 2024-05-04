@@ -33,10 +33,6 @@ class NativeAdRemover : IHook {
             xPrefs.getString("adClass", ""),
             classLoader
         )
-        val adParentClass = XposedHelpers.findClassIfExists(
-            xPrefs.getString("adParentClass", "o.setPreserveFocusAfterLayout"),
-            classLoader
-        )
 
         XposedBridge.hookAllMethods(
             classLoader.loadClass("com.amazon.device.ads.DTBAdRequest"),
@@ -47,6 +43,7 @@ class NativeAdRemover : IHook {
                 }
             }
         )
+
         var seen = false
         XposedBridge.hookAllMethods(
             classLoader.loadClass("androidx.fragment.app.Fragment"),

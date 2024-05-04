@@ -4,19 +4,14 @@
     <string name="settings_remove_ads_title">広告を削除</string>
     <string name="settings_remove_ads_desc">すべての広告を削除します。</string>
     <string name="settings_client_header">クライアント</string>
-    <string name="settings_replace_ua_title">User-Agentの変更</string>
-    <string name="settings_replace_ua_desc">ChMateのUser-Agentを変更します。</string>
+    <string name="settings_replace_ua_title">User-Agent の変更</string>
+    <string name="settings_replace_ua_desc">ChMateのUser-Agent を変更します。</string>
     <string name="settings_remove_api_id_title">MonaKeyを削除</string>
-    <string name="settings_remove_api_id_desc">クッキーを削除する際にMonaKey（投稿キー）も削除します。</string>
+    <string name="settings_remove_api_id_desc">クッキーを削除する際に MonaKey（投稿キー）も削除します。</string>
     <string name="settings_advanced_header">高度な設定</string>
-    <string name="settings_class_ad_parent_title">広告の親のクラス (広告の自動判定に使用します)</string>
-    <string name="settings_class_cookie_title">SharedPrefsCookiePersistorクラス</string>
-    <string name="settings_pref_api_name_title">2chapi設定ファイル</string>
-    <string name="settings_pref_api_id_key_title">2chapi_monakey設定キー</string>
-    <string name="settings_about_header">アプリについて</string>
-    <string name="settings_github_desc">タップして GitHub リポジトリを開く。</string>
-    <string name="settings_status_title">%1$s バージョン %2$s</string>
-    <string name="settings_status_desc">タップしてライセンスを閲覧する。</string>
+    <string name="settings_class_cookie_title">SharedPrefsCookiePersistor クラス</string>
+    <string name="settings_pref_api_name_title">2chapi 設定ファイル</string>
+    <string name="settings_pref_api_id_key_title">2chapi_monakey 設定キー</string>
     <string name="positive">OK</string>
     <string name="restarting">アプリを再起動しています...</string>
 </resources>

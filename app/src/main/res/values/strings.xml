@@ -12,15 +12,9 @@
     <string name="settings_remove_api_id_title">Make MonaKey removable</string>
     <string name="settings_remove_api_id_desc">When removing your cookie, also removes MonaKey (a post key).</string>
     <string name="settings_advanced_header">Advanced setting</string>
-    <string name="settings_class_ad_parent_title">Parent class of ad (used for automatic determination of ads)</string>
     <string name="settings_class_cookie_title">SharedPrefsCookiePersistor class</string>
     <string name="settings_pref_api_name_title">2chapi preference file</string>
     <string name="settings_pref_api_id_key_title">2chapi_monakey preference key</string>
-    <string name="settings_about_header">About</string>
-    <string name="settings_github_title" translatable="false">Chipppppppppp/GitHub</string>
-    <string name="settings_github_desc">Tap to open GitHub repository.</string>
-    <string name="settings_status_title">%1$s version %2$s</string>
-    <string name="settings_status_desc">Tap to view licenses.</string>
     <string name="positive">OK</string>
     <string name="restarting">Restarting now...</string>
 </resources>
