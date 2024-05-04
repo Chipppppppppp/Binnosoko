@@ -11,7 +11,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="F*ck ads of ChMate" />
+            android:value="F*ck ChMate's ads" />
         <meta-data
             android:name="xposedminversion"
             android:value="82" />
