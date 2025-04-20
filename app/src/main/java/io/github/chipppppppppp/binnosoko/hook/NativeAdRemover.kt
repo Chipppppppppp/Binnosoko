@@ -1,6 +1,5 @@
 package io.github.chipppppppppp.binnosoko.hook
 
-import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -16,8 +15,6 @@ import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.chipppppppppp.binnosoko.R
 import io.github.chipppppppppp.binnosoko.config.Config
-import java.util.Timer
-import kotlin.concurrent.timerTask
 
 class NativeAdRemover : IHook {
     override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {

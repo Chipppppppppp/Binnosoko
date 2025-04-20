@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Process
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -18,10 +17,10 @@ import android.widget.ScrollView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import io.github.chipppppppppp.binnosoko.R
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import io.github.chipppppppppp.binnosoko.R
 import io.github.chipppppppppp.binnosoko.config.Config
 import io.github.chipppppppppp.binnosoko.hook.IHook
 import io.github.chipppppppppp.binnosoko.hook.ModuleMain
@@ -54,7 +53,10 @@ class AddSettings : IHook {
                         Context.MODE_PRIVATE
                     )
 
-                    val viewGroup = ((activity.window.decorView as ViewGroup).getChildAt(0) as ViewGroup).getChildAt(1) as ViewGroup
+                    val viewGroup =
+                        ((activity.window.decorView as ViewGroup).getChildAt(0) as ViewGroup).getChildAt(
+                            1
+                        ) as ViewGroup
 
                     val frameLayout = FrameLayout(activity)
                     frameLayout.layoutParams = ViewGroup.LayoutParams(

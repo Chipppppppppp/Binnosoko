@@ -32,8 +32,10 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
             userAgent = xPrefs.getString("userAgent", config.userAgent) ?: config.userAgent,
             removeMonaKey = xPrefs.getBoolean("removeMonaKey", config.removeMonaKey),
             cookieClass = xPrefs.getString("cookieClass", config.cookieClass) ?: config.cookieClass,
-            prefMonaKeyFile = xPrefs.getString("prefMonaKeyFile", config.prefMonaKeyFile) ?: config.prefMonaKeyFile,
-            prefMonaKeyName = xPrefs.getString("prefMonaKeyName", config.prefMonaKeyName) ?: config.prefMonaKeyName
+            prefMonaKeyFile = xPrefs.getString("prefMonaKeyFile", config.prefMonaKeyFile)
+                ?: config.prefMonaKeyFile,
+            prefMonaKeyName = xPrefs.getString("prefMonaKeyName", config.prefMonaKeyName)
+                ?: config.prefMonaKeyName
         )
 
         arrayOf(
