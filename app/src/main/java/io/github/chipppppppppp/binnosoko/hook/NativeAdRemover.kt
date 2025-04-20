@@ -44,6 +44,25 @@ class NativeAdRemover : IHook {
             }
         )
 
+        XposedBridge.hookAllMethods(
+            classLoader.loadClass("com.unity3d.mediation.banner.LevelPlayBannerAdView"),
+            "loadAd",
+            object : XC_MethodHook() {
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    param.result = null
+                }
+            }
+        )
+
+        XposedBridge.hookAllConstructors(
+            classLoader.loadClass("com.unity3d.mediation.banner.LevelPlayBannerAdView"),
+            object : XC_MethodHook() {
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    (param.thisObject as View).visibility = View.GONE
+                }
+            }
+        )
+
         var seen = false
         XposedBridge.hookAllMethods(
             classLoader.loadClass("androidx.fragment.app.Fragment"),
