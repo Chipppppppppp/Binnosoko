@@ -1,9 +1,11 @@
 package io.github.chipppppppppp.binnosoko.hook
 
+import android.util.Log
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam
 import de.robv.android.xposed.XSharedPreferences
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.chipppppppppp.binnosoko.config.Config
 import io.github.chipppppppppp.binnosoko.ui.AddSettings
@@ -40,11 +42,18 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
 
         arrayOf(
             AddSettings(),
-            NativeAdRemover(),
+            BannerAdRemover(),
+            InlineAdRemover(),
             UserAgentReplacer(),
             MonaKeyRemover(),
         ).forEach { hook ->
-            hook.register(config, lpParam)
+            val hookName = hook::class.simpleName ?: "UnknownHook"
+            try {
+                hook.register(config, lpParam)
+            } catch (e: Exception) {
+                val errorMessage = "HookRegister: Failed to register $hookName\n${Log.getStackTraceString(e)}"
+                XposedBridge.log(errorMessage)
+            }
         }
     }
 

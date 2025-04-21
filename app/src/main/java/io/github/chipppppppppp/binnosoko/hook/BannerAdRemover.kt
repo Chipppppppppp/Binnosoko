@@ -16,7 +16,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.chipppppppppp.binnosoko.R
 import io.github.chipppppppppp.binnosoko.config.Config
 
-class NativeAdRemover : IHook {
+class BannerAdRemover : IHook {
     override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!config.hideAd) return
 
@@ -37,25 +37,6 @@ class NativeAdRemover : IHook {
             object : XC_MethodHook() {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     param.result = null
-                }
-            }
-        )
-
-        XposedBridge.hookAllMethods(
-            classLoader.loadClass("com.unity3d.mediation.banner.LevelPlayBannerAdView"),
-            "loadAd",
-            object : XC_MethodHook() {
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    param.result = null
-                }
-            }
-        )
-
-        XposedBridge.hookAllConstructors(
-            classLoader.loadClass("com.unity3d.mediation.banner.LevelPlayBannerAdView"),
-            object : XC_MethodHook() {
-                override fun afterHookedMethod(param: MethodHookParam) {
-                    (param.thisObject as View).visibility = View.GONE
                 }
             }
         )
