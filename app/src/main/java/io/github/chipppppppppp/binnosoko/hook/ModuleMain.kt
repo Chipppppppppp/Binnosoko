@@ -51,7 +51,8 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
             try {
                 hook.register(config, lpParam)
             } catch (e: Exception) {
-                val errorMessage = "HookRegister: Failed to register $hookName\n${Log.getStackTraceString(e)}"
+                val errorMessage =
+                    "HookRegister: Failed to register $hookName\n${Log.getStackTraceString(e)}"
                 XposedBridge.log(errorMessage)
             }
         }
