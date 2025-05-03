@@ -40,53 +40,71 @@ class BannerAdRemover : IHook {
                 }
             }
         )
-
-        var seen = false
+var seen = false
         XposedBridge.hookAllMethods(
             classLoader.loadClass("androidx.fragment.app.Fragment"),
             "onViewCreated",
             object : XC_MethodHook() {
                 override fun beforeHookedMethod(param: MethodHookParam) {
-                    if (seen) return
-                    if (param.args[0] !is ViewGroup) return
+                    if (seen) {
+                        return
+                    }
+                    if (param.args[0] !is ViewGroup) {
+                        return
+                    }
                     val viewGroup = param.args[0] as ViewGroup
-                    if (viewGroup.childCount < 3) return
+                    if (viewGroup.childCount < 3) {
+                        return
+                    }
+
                     val adView = viewGroup.getChildAt(viewGroup.childCount - 3)
-                    if (adView !is FrameLayout) return
+                    val adViewClassName = adView::class.java.name
+                    
+                    if (adView !is FrameLayout) {
+                        return
+                    }
+                    if (adViewClassName == "android.widget.FrameLayout") {
+                        return
+                    }
+
                     seen = true
-                    if (adView::class.java == adClass) return
-
                     val context = viewGroup.context
-                    val mAddAddAssertPath =
-                        AssetManager::class.java.getDeclaredMethod(
-                            "addAssetPath",
-                            String::class.java
-                        )
-                    mAddAddAssertPath.isAccessible = true
-                    mAddAddAssertPath.invoke(context.resources.assets, ModuleMain.MODULE_PATH)
-
                     val prefs = context.getSharedPreferences(
                         "${ModuleMain.MODULE_NAME}-config",
                         Context.MODE_PRIVATE
                     )
-                    prefs.edit().putString("adClass", adView.javaClass.name).commit()
+                    val savedAdClass = prefs.getString("adClass", null)
+                       if (savedAdClass != null && adViewClassName == savedAdClass) {
+                           return
+                    }
+                    
+                        val mAddAddAssertPath =
+                            AssetManager::class.java.getDeclaredMethod(
+                                "addAssetPath",
+                                String::class.java
+                            )
+                        mAddAddAssertPath.isAccessible = true
+                        mAddAddAssertPath.invoke(context.resources.assets, ModuleMain.MODULE_PATH)
 
-                    Toast.makeText(
-                        context.applicationContext,
-                        context.getString(R.string.restarting),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Process.killProcess(Process.myPid())
-                    context.startActivity(
-                        Intent().setClassName(
-                            ModuleMain.MODULE_NAME,
-                            "jp.syoboi.a2chMate.activity.HomeActivity"
+                        prefs.edit().putString("adClass", adViewClassName).commit()
+
+                        Toast.makeText(
+                            context.applicationContext,
+                            context.getString(R.string.restarting),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        Process.killProcess(Process.myPid())
+                        context.startActivity(
+                            Intent().setClassName(
+                                ModuleMain.MODULE_NAME,
+                                "jp.syoboi.a2chMate.activity.HomeActivity"
+                            )
                         )
-                    )
+
                 }
             }
         )
-
         XposedBridge.hookAllMethods(
             View::class.java,
             "onAttachedToWindow",
