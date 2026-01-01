@@ -17,4 +17,5 @@
     <string name="settings_pref_api_id_key_title">2chapi_monakey preference key</string>
     <string name="positive">OK</string>
     <string name="restarting">Restarting now...</string>
+    <string name="settings_pref_ad_class_name_title">Ad ClassName</string>
 </resources>

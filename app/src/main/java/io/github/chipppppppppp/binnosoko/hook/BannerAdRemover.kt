@@ -61,16 +61,16 @@ class BannerAdRemover : IHook {
                 object : XC_MethodHook() {
                     override fun beforeHookedMethod(param: MethodHookParam) {
                         val context = (param.thisObject as? Any)?.let { obj ->
-                                try {
-                                    obj.javaClass
-                                        .getMethod("getContext")
-                                        .invoke(obj) as? Context
-                                } catch (_: Throwable) {
-                                    null
-                                }
+                            try {
+                                obj.javaClass
+                                    .getMethod("getContext")
+                                    .invoke(obj) as? Context
+                            } catch (_: Throwable) {
+                                null
                             }
-                                ?: (param.args.getOrNull(0) as? View)?.context
-                                ?: return
+                        }
+                            ?: (param.args.getOrNull(0) as? View)?.context
+                            ?: return
                         val versionCode = try {
                             val pm = context.packageManager
                             val pi = pm.getPackageInfo(context.packageName, 0)
@@ -86,7 +86,7 @@ class BannerAdRemover : IHook {
                         val target = 494L
                         val result = versionCode >= target
                         if (!result) {
-                            if (seen)return
+                            if (seen) return
                             if (param.args[0] !is ViewGroup) {
                                 return
                             }
@@ -141,9 +141,8 @@ class BannerAdRemover : IHook {
                                     "jp.syoboi.a2chMate.activity.HomeActivity"
                                 )
                             )
-
-                        } else {
-                            if (seen)return
+                        }else{
+                            if (seen) return
                             val fragment = param.thisObject
                             if (fragment.javaClass.name !=
                                 "jp.syoboi.a2chMate.ui.home.HomeFragment"
@@ -157,17 +156,24 @@ class BannerAdRemover : IHook {
                                 if (child is FrameLayout) {
                                     hit++
                                     if (hit == 2) {
+
                                         val adViewClassName = child.javaClass.name
-                                        seen = true
                                         val context = container.context
                                         val prefs = context.getSharedPreferences(
                                             "${ModuleMain.MODULE_NAME}-config",
                                             Context.MODE_PRIVATE
                                         )
+
+                                        val savedAdClass = prefs.getString("adClass", null)
+                                        if (savedAdClass != null && savedAdClass == adViewClassName) {
+                                            return
+                                        }
                                         prefs.edit()
                                             .putString("adClass", adViewClassName)
                                             .commit()
 
+                                        seen = true
+                                        try {
                                             val mAddAssetPath =
                                                 AssetManager::class.java.getDeclaredMethod(
                                                     "addAssetPath",
@@ -178,16 +184,13 @@ class BannerAdRemover : IHook {
                                                 context.resources.assets,
                                                 ModuleMain.MODULE_PATH
                                             )
-                                        val savedAdClass = prefs.getString("adClass", null)
-                                        if (savedAdClass != null && adViewClassName == savedAdClass) {
-                                            return
+                                        } catch (_: Throwable) {
                                         }
                                         Toast.makeText(
                                             context.applicationContext,
                                             context.getString(R.string.restarting),
                                             Toast.LENGTH_SHORT
                                         ).show()
-
                                         Process.killProcess(Process.myPid())
                                         context.startActivity(
                                             Intent().setClassName(
@@ -198,7 +201,6 @@ class BannerAdRemover : IHook {
                                         return
                                     }
                                 }
-
                             }
                         }
                     }

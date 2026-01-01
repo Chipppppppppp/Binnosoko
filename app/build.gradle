@@ -11,7 +11,7 @@ android {
         minSdk 23
         targetSdk 34
         versionCode 22
-        versionName "2.6.2"
+        versionName "2.6.3"
         proguardFiles += 'proguard-rules.pro'
         multiDexEnabled false
         vectorDrawables {

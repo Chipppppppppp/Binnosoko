@@ -156,6 +156,17 @@ class AddSettings : IHook {
                     }
                     layout.addView(prefMonaKeyNameEditText)
 
+                    layout.addView(TextView(activity).apply {
+                        setText(R.string.settings_pref_ad_class_name_title)
+                        setLayoutParams(params)
+                    })
+                    val savedAdClass = prefs.getString("adClass", "")
+                    val adClassEditText = EditText(activity).apply {
+                        setText(savedAdClass)
+                    }
+                    layout.addView(adClassEditText)
+
+
                     val scrollView = ScrollView(activity)
                     scrollView.addView(layout)
                     builder.setView(scrollView)
@@ -180,6 +191,7 @@ class AddSettings : IHook {
                             .putString("cookieClass", cookieClassEditText.text.toString())
                             .putString("prefMonaKeyFile", prefMonaKeyFileEditText.text.toString())
                             .putString("prefMonaKeyName", prefMonaKeyNameEditText.text.toString())
+                            .putString("adClass", adClassEditText.text.toString().trim())
                             .commit()
                         if (config != configCopy) {
                             Toast.makeText(
