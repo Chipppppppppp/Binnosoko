@@ -31,6 +31,11 @@ class AddSettings : IHook {
         return Math.round(dp.toFloat() * density)
     }
 
+    private fun getStatusBarHeight(context: Context): Int {
+        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+        return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
+    }
+
     override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
         XposedBridge.hookAllMethods(
             lpParam.classLoader.loadClass("jp.syoboi.a2chMate.activity.SettingActivity"),
@@ -72,7 +77,8 @@ class AddSettings : IHook {
                     )
                     layoutParams.gravity = Gravity.TOP or Gravity.END
                     layoutParams.rightMargin = dpToPx(10, activity)
-                    layoutParams.topMargin = dpToPx(5, activity)
+                    // ステータスバーの高さを加算して、ボタンが重ならないようにする
+                    layoutParams.topMargin = getStatusBarHeight(activity) + dpToPx(5, activity)
                     button.layoutParams = layoutParams
 
                     val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -166,6 +172,13 @@ class AddSettings : IHook {
                     }
                     layout.addView(adClassEditText)
 
+                    // --- 追加: chtoio 設定スイッチ ---
+                    val chtoioSwitch = Switch(activity).apply {
+                        setText("chtoio")  // 必要に応じて文字列リソースに置き換え (例: R.string.settings_chtoio_title)
+                        setLayoutParams(params)
+                        isChecked = config.chtoio
+                    }
+                    layout.addView(chtoioSwitch)
 
                     val scrollView = ScrollView(activity)
                     scrollView.addView(layout)
@@ -181,7 +194,8 @@ class AddSettings : IHook {
                             removeMonaKey = removeMonaKeySwitch.isChecked,
                             cookieClass = cookieClassEditText.text.toString(),
                             prefMonaKeyFile = prefMonaKeyFileEditText.text.toString(),
-                            prefMonaKeyName = prefMonaKeyNameEditText.text.toString()
+                            prefMonaKeyName = prefMonaKeyNameEditText.text.toString(),
+                            chtoio = chtoioSwitch.isChecked   // ← 追加
                         )
                         prefs.edit()
                             .putBoolean("hideAd", hideAdSwitch.isChecked)
@@ -192,6 +206,7 @@ class AddSettings : IHook {
                             .putString("prefMonaKeyFile", prefMonaKeyFileEditText.text.toString())
                             .putString("prefMonaKeyName", prefMonaKeyNameEditText.text.toString())
                             .putString("adClass", adClassEditText.text.toString().trim())
+                            .putBoolean("chtoio", chtoioSwitch.isChecked)   // ← 追加
                             .commit()
                         if (config != configCopy) {
                             Toast.makeText(

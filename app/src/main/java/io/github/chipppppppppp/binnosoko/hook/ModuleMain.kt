@@ -30,6 +30,7 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
 
         config = Config(
             hideAd = xPrefs.getBoolean("hideAd", config.hideAd),
+            chtoio = xPrefs.getBoolean("chtoio", config.chtoio),
             replaceUserAgent = xPrefs.getBoolean("replaceUserAgent", config.replaceUserAgent),
             userAgent = xPrefs.getString("userAgent", config.userAgent) ?: config.userAgent,
             removeMonaKey = xPrefs.getBoolean("removeMonaKey", config.removeMonaKey),
@@ -46,6 +47,7 @@ class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
             InlineAdRemover(),
             UserAgentReplacer(),
             MonaKeyRemover(),
+            Chtoio(),
         ).forEach { hook ->
             val hookName = hook::class.simpleName ?: "UnknownHook"
             try {
