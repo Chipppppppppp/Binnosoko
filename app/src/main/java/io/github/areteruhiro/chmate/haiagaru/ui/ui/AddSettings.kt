@@ -1,4 +1,4 @@
-package io.github.chipppppppppp.binnosoko.ui
+package io.github.areteruhiro.chmate.haiagaru.ui.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -20,10 +20,10 @@ import android.widget.Toast
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import io.github.chipppppppppp.binnosoko.R
-import io.github.chipppppppppp.binnosoko.config.Config
-import io.github.chipppppppppp.binnosoko.hook.IHook
-import io.github.chipppppppppp.binnosoko.hook.ModuleMain
+import io.github.areteruhiro.chmate.haiagaru.ui.R
+import io.github.areteruhiro.chmate.haiagaru.ui.config.Config
+import io.github.areteruhiro.chmate.haiagaru.ui.hook.IHook
+import io.github.areteruhiro.chmate.haiagaru.ui.hook.ModuleMain
 
 class AddSettings : IHook {
     private fun dpToPx(dp: Int, context: Context): Int {

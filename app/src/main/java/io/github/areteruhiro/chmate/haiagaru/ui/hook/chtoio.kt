@@ -1,4 +1,4 @@
-package io.github.chipppppppppp.binnosoko.hook
+package io.github.areteruhiro.chmate.haiagaru.ui.hook
 
 import android.text.Spannable
 import android.text.SpannableString
@@ -7,7 +7,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge.hookMethod
 import de.robv.android.xposed.XposedBridge.log
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import io.github.chipppppppppp.binnosoko.config.Config
+import io.github.areteruhiro.chmate.haiagaru.ui.config.Config
 import java.io.File
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier

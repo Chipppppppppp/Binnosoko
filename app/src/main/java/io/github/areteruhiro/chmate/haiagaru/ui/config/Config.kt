@@ -1,4 +1,4 @@
-package io.github.chipppppppppp.binnosoko.config
+package io.github.areteruhiro.chmate.haiagaru.ui.config
 
 data class Config(
     var hideAd: Boolean = true,

@@ -1,10 +1,10 @@
-package io.github.chipppppppppp.binnosoko.hook
+package io.github.areteruhiro.chmate.haiagaru.ui.hook
 
 import android.view.View
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import io.github.chipppppppppp.binnosoko.config.Config
+import io.github.areteruhiro.chmate.haiagaru.ui.config.Config
 
 class InlineAdRemover : IHook {
     override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {

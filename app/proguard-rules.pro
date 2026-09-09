@@ -1,2 +1,2 @@
 -keepnames class ** { *; }
--keep class io.github.chipppppppppp.binnosoko.**
+-keep class io.github.areteruhiro.chmate.haiagaru.ui.**

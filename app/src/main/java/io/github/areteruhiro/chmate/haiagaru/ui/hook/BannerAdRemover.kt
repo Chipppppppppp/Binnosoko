@@ -1,5 +1,6 @@
-package io.github.chipppppppppp.binnosoko.hook
+package io.github.areteruhiro.chmate.haiagaru.ui.hook
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -13,12 +14,21 @@ import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import io.github.chipppppppppp.binnosoko.R
-import io.github.chipppppppppp.binnosoko.config.Config
+import io.github.areteruhiro.chmate.haiagaru.ui.R
+import io.github.areteruhiro.chmate.haiagaru.ui.config.Config
 class BannerAdRemover : IHook {
     companion object {
+        private const val VERSION_0_8_10_243 = "0.8.10.243"
+        private const val AD_CLASS_0_8_10_243 = "o.zzewp"
+
         @Volatile
         private var seen = false
+
+        @Volatile
+        private var adClassName: String? = null
+
+        @Volatile
+        private var useKnownAdClass = false
     }
     override fun register(config: Config, lpParam: XC_LoadPackage.LoadPackageParam) {
         if (!config.hideAd) return
@@ -29,9 +39,21 @@ class BannerAdRemover : IHook {
         )
 
         val classLoader = lpParam.classLoader
-        val adClass = XposedHelpers.findClassIfExists(
-            xPrefs.getString("adClass", ""),
-            classLoader
+        adClassName = xPrefs.getString("adClass", "")?.takeIf { it.isNotBlank() }
+
+        XposedHelpers.findAndHookMethod(
+            Application::class.java,
+            "attach",
+            Context::class.java,
+            object : XC_MethodHook() {
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    val context = param.args.getOrNull(0) as? Context ?: return
+                    useKnownAdClass = getVersionName(context) == VERSION_0_8_10_243
+                    if (useKnownAdClass) {
+                        adClassName = AD_CLASS_0_8_10_243
+                    }
+                }
+            }
         )
 
         XposedBridge.hookAllMethods(
@@ -49,7 +71,7 @@ class BannerAdRemover : IHook {
             object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val view = param.thisObject as View
-                    if (adClass != null && view::class.java == adClass) {
+                    if (view::class.java.name == adClassName) {
                         view.layoutParams.height = 0
                     }
                 }
@@ -83,6 +105,7 @@ class BannerAdRemover : IHook {
                         } catch (t: Throwable) {
                             return
                         }
+                        if (useKnownAdClass) return
                         val target = 494L
                         val result = versionCode >= target
                         if (!result) {
@@ -206,5 +229,13 @@ class BannerAdRemover : IHook {
                     }
                 }
             )
+    }
+
+    private fun getVersionName(context: Context): String? {
+        return try {
+            context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        } catch (_: Throwable) {
+            null
+        }
     }
 }

@@ -1,4 +1,4 @@
-package io.github.chipppppppppp.binnosoko.hook
+package io.github.areteruhiro.chmate.haiagaru.ui.hook
 
 import android.util.Log
 import de.robv.android.xposed.IXposedHookLoadPackage
@@ -7,13 +7,13 @@ import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam
 import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import io.github.chipppppppppp.binnosoko.config.Config
-import io.github.chipppppppppp.binnosoko.ui.AddSettings
+import io.github.areteruhiro.chmate.haiagaru.ui.config.Config
+import io.github.areteruhiro.chmate.haiagaru.ui.ui.AddSettings
 
 class ModuleMain : IXposedHookLoadPackage, IXposedHookZygoteInit {
     companion object {
         const val PACKAGE_NAME = "jp.co.airfront.android.a2chMate"
-        const val MODULE_NAME = "io.github.chipppppppppp.binnosoko"
+        const val MODULE_NAME = "io.github.areteruhiro.chmate.haiagaru.ui"
         lateinit var MODULE_PATH: String
     }
 
